@@ -1,0 +1,196 @@
+{
+  "agents": [
+    {
+      "name": "Forge",
+      "role": "Code Builder",
+      "emoji": "\ud83d\udd28",
+      "color": "blue",
+      "status": "active",
+      "currentTask": "Building mission control dashboard",
+      "lastSeen": 1772863629279,
+      "lastHeartbeat": 1772863629279
+    },
+    {
+      "name": "Scout",
+      "role": "Research & Discovery",
+      "emoji": "\ud83d\udd0d",
+      "color": "green",
+      "status": "active",
+      "currentTask": "Researching AI agent patterns",
+      "lastSeen": 1772863629279,
+      "lastHeartbeat": 1772863629279
+    },
+    {
+      "name": "Ghost",
+      "role": "Outreach & Growth",
+      "emoji": "\ud83d\udc7b",
+      "color": "purple",
+      "status": "idle",
+      "currentTask": "Preparing outreach campaign",
+      "lastSeen": 1772863629279,
+      "lastHeartbeat": 1772863629279
+    },
+    {
+      "name": "Closer",
+      "role": "Sales & Deals",
+      "emoji": "\ud83e\udd1d",
+      "color": "orange",
+      "status": "sleeping",
+      "currentTask": "Following up with leads",
+      "lastSeen": 1772863629279,
+      "lastHeartbeat": 1772863629279
+    },
+    {
+      "name": "Hype",
+      "role": "Social & Content",
+      "emoji": "\ud83d\udce3",
+      "color": "red",
+      "status": "active",
+      "currentTask": "Creating social content",
+      "lastSeen": 1772863629279,
+      "lastHeartbeat": 1772863629279
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Deploy Mission Control to Vercel",
+      "description": "Deploy the Mission Control dashboard to Vercel with custom domain mission-control.aiorg.app",
+      "status": "in_progress",
+      "assignee": "Forge",
+      "priority": "P0",
+      "createdAt": 1772863629279,
+      "updatedAt": 1772863629279
+    },
+    {
+      "title": "Research AI agent monitoring patterns",
+      "description": "Research best practices for monitoring AI agent performance and real-time dashboards",
+      "status": "inbox",
+      "assignee": "Scout",
+      "priority": "P1",
+      "createdAt": 1772863629279,
+      "updatedAt": 1772863629279
+    },
+    {
+      "title": "Create outreach campaign for AiOrg",
+      "description": "Design and launch outreach campaign for AiOrg AI development services",
+      "status": "inbox",
+      "assignee": "Ghost",
+      "priority": "P1",
+      "createdAt": 1772863629279,
+      "updatedAt": 1772863629279
+    },
+    {
+      "title": "Follow up with potential clients",
+      "description": "Follow up with 5 potential clients from last week's outreach",
+      "status": "review",
+      "assignee": "Closer",
+      "priority": "P0",
+      "createdAt": 1772863629279,
+      "updatedAt": 1772863629279
+    },
+    {
+      "title": "Create social media content calendar",
+      "description": "Plan and schedule social media content for March 2026",
+      "status": "done",
+      "assignee": "Hype",
+      "priority": "P2",
+      "createdAt": 1772863629279,
+      "updatedAt": 1772863629279
+    },
+    {
+      "title": "Fix API authentication issue",
+      "description": "Resolve authentication problem with Convex backend",
+      "status": "blocked",
+      "assignee": "Forge",
+      "priority": "P0",
+      "createdAt": 1772863629279,
+      "updatedAt": 1772863629279
+    }
+  ],
+  "activities": [
+    {
+      "agent": "Forge",
+      "action": "Sent heartbeat",
+      "detail": "Sample activity #1 for testing dashboard",
+      "timestamp": 1772863629279
+    },
+    {
+      "agent": "Scout",
+      "action": "Logged activity",
+      "detail": "Sample activity #2 for testing dashboard",
+      "timestamp": 1772860029279
+    },
+    {
+      "agent": "Ghost",
+      "action": "Updated task status",
+      "detail": "Sample activity #3 for testing dashboard",
+      "timestamp": 1772856429279
+    },
+    {
+      "agent": "Closer",
+      "action": "Completed research",
+      "detail": "Sample activity #4 for testing dashboard",
+      "timestamp": 1772852829279
+    },
+    {
+      "agent": "Hype",
+      "action": "Deployed code",
+      "detail": "Sample activity #5 for testing dashboard",
+      "timestamp": 1772849229279
+    },
+    {
+      "agent": "Forge",
+      "action": "Sent outreach emails",
+      "detail": "Sample activity #6 for testing dashboard",
+      "timestamp": 1772845629279
+    },
+    {
+      "agent": "Scout",
+      "action": "Closed deal",
+      "detail": "Sample activity #7 for testing dashboard",
+      "timestamp": 1772842029279
+    },
+    {
+      "agent": "Ghost",
+      "action": "Published content",
+      "detail": "Sample activity #8 for testing dashboard",
+      "timestamp": 1772838429279
+    },
+    {
+      "agent": "Closer",
+      "action": "Fixed bug",
+      "detail": "Sample activity #9 for testing dashboard",
+      "timestamp": 1772834829279
+    },
+    {
+      "agent": "Hype",
+      "action": "Optimized performance",
+      "detail": "Sample activity #10 for testing dashboard",
+      "timestamp": 1772831229279
+    }
+  ],
+  "metrics": [
+    {
+      "key": "agents_active",
+      "value": 3,
+      "updatedAt": 1772863629279
+    },
+    {
+      "key": "tasks_completed_today",
+      "value": 12,
+      "updatedAt": 1772863629279
+    },
+    {
+      "key": "heartbeats_received",
+      "value": 47,
+      "updatedAt": 1772863629279
+    },
+    {
+      "key": "api_requests",
+      "value": 156,
+      "updatedAt": 1772863629279
+    }
+  ],
+  "generated_at": "2026-03-07T06:07:09.279866",
+  "note": "This is sample data for testing. Real data will come from Convex backend."
+}

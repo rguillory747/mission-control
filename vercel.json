@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next",
+      "config": {
+        "zeroConfig": true
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/api/ops/$1"
+    }
+  ],
+  "env": {
+    "NEXT_PUBLIC_CONVEX_URL": "https://good-corgi-153.convex.cloud"
+  }
+}

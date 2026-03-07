@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-03-07T06:45:00Z",
+  "convex_url": "https://fancy-ape-615.convex.cloud",
+  "api_key_type": "JWT",
+  "results": [
+    {
+      "test": "POST /api/heartbeat",
+      "success": false,
+      "status": 404,
+      "response": ""
+    },
+    {
+      "test": "POST /api/activity",
+      "success": false,
+      "status": 404,
+      "response": ""
+    },
+    {
+      "test": "POST /api/task-create",
+      "success": false,
+      "status": 404,
+      "response": ""
+    }
+  ],
+  "summary": {
+    "total_tests": 3,
+    "successful_tests": 0,
+    "success_rate": 0.0
+  }
+}

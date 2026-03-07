@@ -1,0 +1,113 @@
+{
+  "timestamp": "2026-03-07T06:13:52.447473",
+  "base_url": "http://localhost:3000",
+  "summary": {
+    "api_endpoints_tested": 4,
+    "api_endpoints_successful": 4,
+    "api_success_rate": 1.0,
+    "frontend_pages_tested": 5,
+    "frontend_pages_successful": 3,
+    "frontend_success_rate": 0.6
+  },
+  "api_endpoints": {
+    "ops_health": {
+      "status_code": 200,
+      "success": true,
+      "response": {
+        "ok": true,
+        "status": "healthy",
+        "timestamp": "2026-03-07T06:13:52.476Z",
+        "version": "1.0.0",
+        "services": {
+          "convex": true,
+          "supabase": false
+        }
+      }
+    },
+    "ops_heartbeat_get": {
+      "status_code": 200,
+      "success": true,
+      "response": {
+        "ok": true,
+        "message": "Heartbeat endpoint ready (in-memory mode)",
+        "timestamp": "2026-03-07T06:13:52.494Z",
+        "setup": {
+          "status": "Supabase not configured - heartbeats won't persist",
+          "instructions": "Add SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY to .env.local"
+        }
+      }
+    },
+    "ops_heartbeat_post": {
+      "status_code": 200,
+      "success": true,
+      "response": {
+        "ok": true,
+        "agent": "TestAgent",
+        "status": "active",
+        "recorded": "2026-03-07T06:13:52.501Z"
+      }
+    },
+    "build_queue": {
+      "status_code": 200,
+      "success": true,
+      "response": []
+    }
+  },
+  "frontend_pages": {
+    "/": {
+      "status_code": 200,
+      "success": true,
+      "content_type": "text/html; charset=utf-8",
+      "content_length": 6080
+    },
+    "/ops": {
+      "status_code": 200,
+      "success": true,
+      "content_type": "text/html; charset=utf-8",
+      "content_length": 6961
+    },
+    "/tasks": {
+      "status_code": 404,
+      "success": false,
+      "content_type": "text/html; charset=utf-8",
+      "content_length": 6562
+    },
+    "/activity": {
+      "status_code": 404,
+      "success": false,
+      "content_type": "text/html; charset=utf-8",
+      "content_length": 6562
+    },
+    "/settings": {
+      "status_code": 200,
+      "success": true,
+      "content_type": "text/html; charset=utf-8",
+      "content_length": 6505
+    }
+  },
+  "convex_dependent_endpoints": {
+    "note": "These endpoints require Convex backend to be deployed and running",
+    "endpoints": [
+      "POST /api/heartbeat",
+      "POST /api/activity",
+      "POST /api/task-create",
+      "POST /api/task-update",
+      "POST /api/metric",
+      "POST /api/leads",
+      "POST /api/actions",
+      "POST /api/content-drop"
+    ]
+  },
+  "recommendations": [
+    "\u26a0\ufe0f Local server is partially operational",
+    "Failing frontend pages: /tasks, /activity",
+    "Check server logs for errors",
+    "Verify Next.js build completed successfully",
+    "\n\ud83d\udd27 For full functionality, deploy Convex backend:",
+    "  1. Run: npx convex login",
+    "  2. Run: npx convex dev",
+    "  3. Run: npx convex deploy",
+    "  4. Update NEXT_PUBLIC_CONVEX_URL in environment"
+  ],
+  "status": "partially_operational_local"
+}

@@ -1,0 +1,7030 @@
+Chapter 1
+Introduction: Why Mission Control?
+
+Content
+
+Notes
+Module 1: Introduction to Mission Control
+What is Mission Control?
+Imagine you have five AI agents running simultaneously. One is monitoring your emails, another is posting to social media, a third is analyzing data, and two more are handling customer support tickets. Everything seems fine... until one of them stops working and you don't notice for three hours.
+
+Mission Control solves this problem.
+
+Mission Control is a real-time dashboard that gives you complete visibility into your agent fleet. At a glance, you can see:
+
+Which agents are running and which are down
+
+What each agent is currently doing
+
+When an agent last checked in
+
+What tasks are assigned and their status
+
+A live feed of all agent activity
+
+Think of it like air traffic control, but for your AI agents. You're the operator, and Mission Control ensures nothing crashes without you knowing.
+
+Why You Need This
+The Problem with Invisible Agents
+When you run AI agents in the background (especially autonomous ones), you face several challenges:
+
+1. Silent Failures
+
+Your agent crashes, but you don't know until someone complains or you manually check logs. By then, you've lost hours of productivity.
+
+2. No Visibility
+
+You have no idea what your agents are actually doing. Are they working? Stuck? Waiting for something?
+
+3. Coordination Chaos
+
+With multiple agents, how do you know who's doing what? How do you prevent duplicate work or missed tasks?
+
+4. Manual Monitoring
+
+Checking logs, SSHing into servers, running status commands – it's tedious and doesn't scale.
+
+5. Debugging Nightmares
+
+When something goes wrong, you're digging through text files trying to reconstruct what happened.
+
+The Solution: Mission Control
+Mission Control gives you a single source of truth for your entire agent infrastructure:
+
+Heartbeat monitoring ensures you know within seconds when an agent goes down
+
+Real-time activity feeds show you exactly what's happening right now
+
+Task assignment lets you coordinate work across multiple agents
+
+Visual dashboard provides instant status checks without reading logs
+
+Historical data helps you debug issues and understand agent behavior
+
+What We'll Build
+Over the next 9 modules, you'll build a complete Mission Control system with these features:
+
+1. Agent Registry & Status
+A central registry where every agent reports in. You'll see:
+
+Agent name and unique ID
+
+Current status (online/offline/error)
+
+Last heartbeat timestamp
+
+How long since last activity
+
+Visual indicators (green for healthy, red for down)
+
+2. Heartbeat System
+The core monitoring mechanism:
+
+Agents send periodic "heartbeat" signals
+
+Server tracks heartbeats in real-time
+
+Automatic detection when agents miss check-ins
+
+Configurable timeout thresholds
+
+Visual alerts for offline agents
+
+3. Task Management
+A complete task system for coordinating agent work:
+
+Create tasks with descriptions, priorities, and deadlines
+
+Assign tasks to specific agents
+
+Track task states (pending, in-progress, complete)
+
+Kanban-style visualization
+
+Task history and completion tracking
+
+4. Activity Feed
+A live stream of what's happening:
+
+Real-time activity logs from all agents
+
+Filterable by agent, time, or activity type
+
+Visual timeline of events
+
+Search functionality
+
+Automatic updates as new activities arrive
+
+5. Dashboard Interface
+A beautiful, functional UI built with modern design:
+
+Responsive layout (works on desktop, tablet, mobile)
+
+Dark mode support for night-time monitoring
+
+Agent cards showing key metrics
+
+System-wide statistics
+
+Intuitive navigation
+
+6. Real-Time Updates
+Everything updates live without refreshing:
+
+Agent status changes appear instantly
+
+New activities stream in as they happen
+
+Task updates sync across all viewers
+
+Connection status indicators
+
+Optimistic UI for smooth interactions
+
+Tech Stack Explained
+We're using a carefully chosen set of tools that balance power with simplicity. Let's understand each one:
+
+Next.js 15
+What it is: A React framework for building web applications.
+
+Why we're using it:
+
+Full-stack in one project – Frontend and API routes together
+
+File-based routing – Create app/dashboard/page.tsx and you automatically get a /dashboard route
+
+Server components – Better performance and SEO
+
+Production-ready – Used by Netflix, TikTok, and thousands of companies
+
+Great developer experience – Fast refresh, TypeScript support, excellent documentation
+
+What you don't need to know:
+
+Advanced Next.js features (we'll keep it simple)
+
+Server-side rendering internals
+
+Complex routing patterns
+
+Convex
+What it is: A backend-as-a-service with a real-time database.
+
+Why we're using it:
+
+No backend code needed – Convex handles server infrastructure
+
+Real-time by default – Data updates live automatically
+
+TypeScript everywhere – Type-safe database queries
+
+Generous free tier – Perfect for learning and small projects
+
+Incredibly simple – You'll be shocked how easy databases can be
+
+What makes it special:
+
+Traditional setup: Build REST API → Set up database → Handle WebSocket connections → Write authentication → Configure caching
+
+With Convex: Write a function. That's it.
+
+What you don't need to know:
+
+SQL or database administration
+
+Backend deployment
+
+API design patterns
+
+Tailwind CSS
+What it is: A utility-first CSS framework.
+
+Why we're using it:
+
+Fast styling – Apply classes directly in your HTML/JSX
+
+Consistent design – Built-in design system
+
+Responsive design – Easy mobile/desktop layouts
+
+No context switching – Stay in your component file
+
+Highly customizable – Easy to match your brand
+
+Example:
+
+Instead of writing CSS:
+
+.button {
+  background-color: blue;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+}
+You write:
+
+<button className="bg-blue-500 text-white px-6 py-3 rounded-lg">
+  Click me
+</button>
+What you don't need to know:
+
+Advanced CSS concepts
+
+CSS preprocessors (Sass, Less)
+
+Complex animations
+
+TypeScript
+What it is: JavaScript with type checking.
+
+Why we're using it:
+
+Catch bugs early – Errors show up before you run code
+
+Better autocomplete – Your editor knows what properties exist
+
+Self-documenting – Types explain what functions expect
+
+Refactoring confidence – Change code without breaking things
+
+Industry standard – Used everywhere in modern web development
+
+Example:
+
+// JavaScript - this will break at runtime
+function getAgentName(agent) {
+  return agent.name.toUpperCase(); // What if agent.name is undefined?
+}
+
+// TypeScript - error before you even run it
+function getAgentName(agent: { name: string }) {
+  return agent.name.toUpperCase(); // Guaranteed to work
+}
+What you don't need to know:
+
+Advanced type theory
+
+Generic constraints
+
+Complex type transformations
+
+Vercel
+What it is: A deployment platform for web applications.
+
+Why we're using it:
+
+One-click deployment – Push to GitHub, automatically deploy
+
+Free hosting – Generous free tier for personal projects
+
+Made by Next.js creators – Perfect integration
+
+Custom domains – Easy to add your own domain
+
+Global CDN – Fast loading worldwide
+
+What you don't need to know:
+
+Server configuration
+
+Docker or containerization
+
+DevOps practices
+
+Prerequisites Check
+Before starting Module 2, make sure you have:
+
+Required
+Node.js 18+ installed – Run node --version to check
+
+  - Download from nodejs.org if needed
+
+  - We recommend the LTS (Long Term Support) version
+
+A code editor – VS Code is highly recommended
+
+  - Download from code.visualstudio.com
+
+  - Install these extensions: "ES7+ React/Redux/React-Native snippets", "Tailwind CSS IntelliSense"
+
+Git installed – Run git --version to check
+
+  - Download from git-scm.com if needed
+
+A terminal/command line – Built into VS Code, or use your system terminal
+
+Basic JavaScript knowledge – You should understand:
+
+  - Variables (const, let)
+
+  - Functions (arrow functions preferred)
+
+  - Objects and arrays
+
+  - Basic async/await
+
+Helpful But Not Required
+GitHub account – For deployment in Module 10
+
+Basic React experience – We'll explain as we go
+
+Command line comfort – We'll show every command
+
+Knowledge You DON'T Need
+❌ Backend development experience
+
+❌ Database administration
+
+❌ Advanced React patterns
+
+❌ CSS expertise
+
+❌ DevOps knowledge
+
+If you can write a JavaScript function and understand what a React component is, you're ready.
+
+The Development Workflow
+Here's how we'll work through this course:
+
+1. Read the explanations – Understand the "why" before the "how"
+
+2. Copy the code – Every code snippet is complete and tested
+
+3. Run and test – See it working in your browser
+
+4. Experiment – Change things, break things, learn by doing
+
+5. Move forward – Each module builds on the previous one
+
+Don't rush. This isn't a race. Understanding is more important than speed. If something doesn't make sense, re-read it. Experiment with the code. Google unfamiliar concepts.
+
+What Success Looks Like
+By the end of this course, you'll have:
+
+✅ A deployed, production-ready Mission Control dashboard
+
+✅ Deep understanding of real-time web applications
+
+✅ Practical experience with modern development tools
+
+✅ A project to show employers or clients
+
+✅ Skills to build your own full-stack applications
+
+✅ Confidence to tackle more complex projects
+
+Common Questions
+Q: I'm new to React. Will I be lost?
+
+A: No. We explain React concepts as we use them. If you've done even a basic React tutorial, you'll be fine.
+
+Q: Do I need to pay for hosting or databases?
+
+A: No. Convex and Vercel both have generous free tiers. You can build and deploy this entire project for $0.
+
+Q: How long will this take?
+
+A: Expect 8-12 hours total if you're coding along. Spread across a week or two, it's very manageable.
+
+Q: What if I get stuck?
+
+A: Every module includes a "Common Errors" section. Plus you have access to our support community.
+
+Q: Can I use this in production?
+
+A: Absolutely! This is production-grade code. Many students deploy Mission Control for real projects.
+
+Q: Do I need to know TypeScript?
+
+A: We'll teach you the TypeScript you need as we go. If you know JavaScript, you can learn TypeScript.
+
+Q: What if I prefer a different tech stack?
+
+A: The concepts (heartbeats, real-time updates, task management) apply to any stack. But we recommend following along with our stack first, then adapting later.
+
+What We Built in This Module
+In this introduction, you learned:
+
+✅ What Mission Control is and why it's valuable
+
+✅ The problems it solves for agent monitoring
+
+✅ Complete feature overview of what we'll build
+
+✅ Tech stack choices and rationale
+
+✅ Prerequisites and required setup
+
+✅ Development workflow for the course
+
+Next Steps
+You now understand the big picture. In Module 2: Project Setup, we'll:
+
+Create a new Next.js application
+
+Install and configure all dependencies
+
+Set up Tailwind CSS for styling
+
+Connect to Convex
+
+Understand the project file structure
+
+Get your terminal ready and your code editor open. Let's build something awesome! 🚀
+
+Time to complete Module 1: ~15 minutes of reading
+
+Next module: Module 2 - Project Setup
+
+Module 2: Project Setup
+Overview
+In this module, we'll create the foundation for Mission Control. By the end, you'll have a fully configured Next.js application with Tailwind CSS and Convex, ready for development.
+
+What we'll do:
+
+Create a new Next.js 15 application
+
+Install and configure Tailwind CSS
+
+Set up Convex for our backend
+
+Understand the project file structure
+
+Run the development server
+
+Time to complete: 30-45 minutes
+
+Step 1: Create Your Next.js Application
+Open your terminal and navigate to where you want to create your project. I recommend a dedicated projects folder:
+
+cd ~
+mkdir -p projects
+cd projects
+Now create the Next.js app:
+
+npx create-next-app@latest mission-control
+You'll be asked several configuration questions. Answer exactly as shown:
+
+✔ Would you like to use TypeScript? … Yes
+✔ Would you like to use ESLint? … Yes
+✔ Would you like to use Tailwind CSS? … Yes
+✔ Would you like your code inside a `src/` directory? … No
+✔ Would you like to use App Router? … Yes
+✔ Would you like to use Turbopack for next dev? … Yes
+✔ Would you like to customize the import alias (@/* by default)? … No
+Why these choices?
+
+TypeScript: Type safety prevents bugs
+
+ESLint: Catches code issues automatically
+
+Tailwind CSS: Fast, utility-first styling
+
+No src/ directory: Simpler structure
+
+App Router: Modern Next.js routing (not Pages Router)
+
+Turbopack: Faster development builds
+
+Default import alias: Standard convention
+
+The installation will take 1-2 minutes. You'll see:
+
+Creating a new Next.js app in /Users/you/projects/mission-control...
+
+Installing dependencies:
+- react
+- react-dom
+- next
+
+Installing devDependencies:
+- typescript
+- @types/node
+- @types/react
+- @types/react-dom
+- eslint
+- eslint-config-next
+- tailwindcss
+- postcss
+- autoprefixer
+
+Success! Created mission-control at /Users/you/projects/mission-control
+Step 2: Navigate Into Your Project
+cd mission-control
+Let's look at what was created:
+
+ls -la
+You should see:
+
+mission-control/
+├── .eslintrc.json          # Linting configuration
+├── .gitignore              # Files to ignore in git
+├── README.md               # Project readme
+├── next.config.ts          # Next.js configuration
+├── package.json            # Dependencies and scripts
+├── postcss.config.mjs      # PostCSS config for Tailwind
+├── tailwind.config.ts      # Tailwind configuration
+├── tsconfig.json           # TypeScript configuration
+├── app/                    # Application code
+│   ├── favicon.ico
+│   ├── globals.css         # Global styles
+│   ├── layout.tsx          # Root layout component
+│   └── page.tsx            # Home page
+├── node_modules/           # Installed packages (huge folder)
+└── public/                 # Static files
+Step 3: Test the Initial Setup
+Let's make sure everything works:
+
+npm run dev
+You should see:
+
+▲ Next.js 15.1.0
+- Local:        http://localhost:3000
+- Network:      http://192.168.1.x:3000
+
+✓ Starting...
+✓ Ready in 1.5s
+Open your browser to http://localhost:3000
+
+You should see the default Next.js welcome page with a dark background and the Next.js logo.
+
+Stop the server by pressing Ctrl+C in your terminal.
+
+Step 4: Install Convex
+Convex will be our backend database. Install it:
+
+npm install convex
+This installs the Convex client library. You should see:
+
+added 1 package, and audited 315 packages in 3s
+Step 5: Initialize Convex
+Now let's set up Convex in our project:
+
+npx convex dev --once --configure=new
+What this does:
+
+convex dev: Starts Convex development mode
+
+--once: Runs once then exits (doesn't watch for changes yet)
+
+--configure=new: Creates a new Convex project
+
+You'll see a browser window open asking you to log in to Convex:
+
+Choose a login method (GitHub, Google, or email)
+
+Create an account if you don't have one (it's free)
+
+Authorize the connection
+
+Back in your terminal, you'll be asked:
+
+? What would you like to name your Convex project? (mission-control)
+Press Enter to accept the default name.
+
+You'll see:
+
+✓ Created project mission-control-xxxx
+✓ Saved credentials to .env.local
+✓ Created convex/ directory
+✓ Added convex to .gitignore
+
+  To run Convex in dev mode, run:
+    npx convex dev
+Step 6: Understand What Just Happened
+Convex created several things:
+
+.env.local file
+This contains your Convex project credentials:
+
+cat .env.local
+You'll see:
+
+# Deployment used by `npx convex dev`
+CONVEX_DEPLOYMENT=dev:mission-control-xxxx
+NEXT_PUBLIC_CONVEX_URL=https://xxx.convex.cloud
+Important: Never commit .env.local to git. It's already in .gitignore.
+
+convex/ directory
+This is where all our backend code will live:
+
+convex/
+├── README.md
+└── tsconfig.json
+Right now it's mostly empty, but we'll fill it soon.
+
+Step 7: Set Up Convex Provider
+We need to connect our Next.js app to Convex. Create a new file:
+
+touch app/ConvexClientProvider.tsx
+Open it in your editor and add this code:
+
+File: `app/ConvexClientProvider.tsx`
+
+"use client";
+
+import { ReactNode } from "react";
+import { ConvexProvider, ConvexReactClient } from "convex/react";
+
+const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
+
+export function ConvexClientProvider({ children }: { children: ReactNode }) {
+  return <ConvexProvider client={convex}>{children}</ConvexProvider>;
+}
+What this does:
+
+"use client": Marks this as a client component (needed for React state)
+
+ConvexReactClient: Creates a connection to Convex
+
+process.env.NEXT_PUBLIC_CONVEX_URL: Reads the Convex URL from environment variables
+
+ConvexProvider: Makes Convex available to all child components
+
+Step 8: Update Root Layout
+Now wrap your app with the Convex provider.
+
+File: `app/layout.tsx`
+
+Replace the entire file with:
+
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+import { ConvexClientProvider } from "./ConvexClientProvider";
+
+const inter = Inter({ subsets: ["latin"] });
+
+export const metadata: Metadata = {
+  title: "Mission Control",
+  description: "Real-time AI agent monitoring dashboard",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en">
+      <body className={inter.className}>
+        <ConvexClientProvider>{children}</ConvexClientProvider>
+      </body>
+    </html>
+  );
+}
+What changed:
+
+Imported ConvexClientProvider
+
+Wrapped {children} with <ConvexClientProvider>
+
+Updated metadata (title and description)
+
+Step 9: Clean Up the Home Page
+Let's replace the default Next.js home page with a simple starting point.
+
+File: `app/page.tsx`
+
+Replace the entire file with:
+
+export default function Home() {
+  return (
+    <main className="min-h-screen bg-gray-900 text-white p-8">
+      <div className="max-w-6xl mx-auto">
+        <h1 className="text-4xl font-bold mb-4">Mission Control</h1>
+        <p className="text-gray-400 text-lg">
+          AI Agent Monitoring Dashboard
+        </p>
+        <div className="mt-8 p-6 bg-gray-800 rounded-lg border border-gray-700">
+          <p className="text-green-400 font-semibold">✓ Next.js configured</p>
+          <p className="text-green-400 font-semibold">✓ Tailwind CSS working</p>
+          <p className="text-green-400 font-semibold">✓ Convex connected</p>
+          <p className="text-gray-400 mt-4">Ready to build! 🚀</p>
+        </div>
+      </div>
+    </main>
+  );
+}
+What this does:
+
+Creates a dark-themed page (gray-900 background)
+
+Centers content with max-w-6xl mx-auto
+
+Shows a simple status card
+
+Uses Tailwind classes for styling
+
+Step 10: Update Global Styles
+Let's simplify the global CSS file.
+
+File: `app/globals.css`
+
+Replace the entire file with:
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  padding: 0;
+}
+What this does:
+
+Imports Tailwind's base, components, and utilities
+
+Removes default body margin/padding
+
+Removes all the default Next.js boilerplate styles
+
+Step 11: Configure Tailwind for Dark Mode
+Let's enable dark mode properly.
+
+File: `tailwind.config.ts`
+
+Replace with:
+
+import type { Config } from "tailwindcss";
+
+const config: Config = {
+  content: [
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        background: "var(--background)",
+        foreground: "var(--foreground)",
+      },
+    },
+  },
+  plugins: [],
+};
+
+export default config;
+What changed:
+
+Added darkMode: "class" for class-based dark mode
+
+Kept the default Tailwind configuration otherwise
+
+Step 12: Start Both Development Servers
+We need TWO terminals running simultaneously:
+
+Terminal 1 - Next.js:
+
+npm run dev
+Terminal 2 - Convex (open a new terminal window):
+
+npx convex dev
+Why two terminals?
+
+Next.js (npm run dev) runs your frontend application
+
+Convex (npx convex dev) watches your backend code and syncs with Convex servers
+
+You should see:
+
+Terminal 1:
+
+▲ Next.js 15.1.0
+- Local:        http://localhost:3000
+✓ Ready in 1.2s
+Terminal 2:
+
+✓ Convex dev server running
+✓ Watching for changes in convex/
+Step 13: View Your Application
+Open http://localhost:3000 in your browser.
+
+You should see:
+
+Dark background (gray-900)
+
+"Mission Control" heading
+
+Three green checkmarks showing configuration status
+
+Clean, centered layout
+
+If you see this, congratulations! Your development environment is fully set up.
+
+Understanding the Project Structure
+Let's understand what each file does:
+
+mission-control/
+│
+├── app/                              # Application code (App Router)
+│   ├── ConvexClientProvider.tsx     # Convex connection wrapper
+│   ├── globals.css                  # Global styles
+│   ├── layout.tsx                   # Root layout (wraps all pages)
+│   └── page.tsx                     # Home page (/)
+│
+├── convex/                           # Backend code (Convex functions)
+│   ├── README.md                    # Convex documentation
+│   └── tsconfig.json                # TypeScript config for Convex
+│
+├── public/                           # Static files (images, etc.)
+│
+├── .env.local                        # Environment variables (DO NOT COMMIT)
+├── .gitignore                       # Files to ignore in git
+├── next.config.ts                   # Next.js configuration
+├── package.json                     # Dependencies and scripts
+├── tailwind.config.ts               # Tailwind configuration
+└── tsconfig.json                    # TypeScript configuration
+Key Directories
+`app/` directory:
+
+Contains all your frontend code
+
+Each folder becomes a route (e.g., app/dashboard/page.tsx → /dashboard)
+
+layout.tsx wraps all pages
+
+page.tsx files are the actual pages
+
+`convex/` directory:
+
+Contains all your backend code
+
+Functions defined here become API endpoints
+
+Watched by npx convex dev
+
+Automatically deployed when you push changes
+
+Available Commands
+Here are the commands you'll use throughout development:
+
+# Start Next.js development server
+npm run dev
+
+# Start Convex development mode (run in separate terminal)
+npx convex dev
+
+# Build for production
+npm run build
+
+# Start production server
+npm start
+
+# Run linter
+npm run lint
+
+# Install a new package
+npm install <package-name>
+Common Errors and Fixes
+Error: "Cannot find module 'convex/react'"
+Cause: Convex not installed properly
+
+Fix:
+
+npm install convex
+Error: "NEXTPUBLICCONVEX_URL is not defined"
+Cause: Environment variable not loaded
+
+Fix:
+
+Make sure .env.local exists
+
+Restart both dev servers
+
+Check that NEXT_PUBLIC_CONVEX_URL is in .env.local
+
+Error: Port 3000 already in use
+Cause: Another app is using port 3000
+
+Fix:
+
+# Find what's using the port
+lsof -i :3000
+
+# Kill it
+kill -9 <PID>
+
+# Or use a different port
+npm run dev -- -p 3001
+Error: "Module not found: Can't resolve './ConvexClientProvider'"
+Cause: Typo in filename or import
+
+Fix:
+
+Check that the file is named exactly ConvexClientProvider.tsx
+
+Check that the import path matches: ./ConvexClientProvider
+
+Browser shows blank page
+Cause: JavaScript error
+
+Fix:
+
+Open browser console (F12)
+
+Look for red errors
+
+Check that both dev servers are running
+
+Try hard refresh (Cmd+Shift+R or Ctrl+Shift+R)
+
+"npx convex dev" doesn't start
+Cause: Not logged in or configuration issue
+
+Fix:
+
+# Re-authenticate
+npx convex dev --once --configure=new
+
+# Or manually login
+npx convex login
+Development Tips
+Keep both terminals visible:
+
+Use a split-screen terminal or two separate windows. You need to see both outputs.
+
+Watch for errors:
+
+Errors appear in both terminals and browser console. Check all three when debugging.
+
+Use browser DevTools:
+
+Press F12 to open
+
+Console tab shows JavaScript errors
+
+Network tab shows API calls
+
+React DevTools extension is helpful
+
+Auto-save works:
+
+Both Next.js and Convex watch for file changes. Just save and see updates instantly.
+
+Git from the start:
+
+git init
+git add .
+git commit -m "Initial setup"
+Good practice to commit after each working module.
+
+What We Built in This Module
+Let's review what you accomplished:
+
+✅ Created a new Next.js 15 application with TypeScript
+
+✅ Configured Tailwind CSS for styling
+
+✅ Set up Convex backend and authentication
+
+✅ Created ConvexClientProvider for React integration
+
+✅ Built a simple home page with dark theme
+
+✅ Learned the project structure
+
+✅ Started both development servers
+
+✅ Understood common errors and fixes
+
+Project Checklist
+Before moving to Module 3, verify:
+
+npm run dev starts without errors
+
+npx convex dev runs in separate terminal
+
+Browser shows "Mission Control" page at localhost:3000
+
+Three green checkmarks visible on the page
+
+.env.local file exists with Convex URL
+
+No red errors in browser console (F12)
+
+Next Steps
+Your development environment is ready! In Module 3: Convex Database Setup, we'll:
+
+Understand how Convex databases work
+
+Define our first database schema
+
+Create tables for agents
+
+Write our first database query
+
+Display live data on the page
+
+The backend is about to get interesting! 🎯
+
+Time to complete Module 2: 30-45 minutes
+
+Next module: Module 3 - Convex Database Setup
+
+Module 3: Convex Database Setup
+Overview
+In this module, you'll learn how Convex works and create your first database tables. By the end, you'll have a working agents table and be able to query data in real-time.
+
+What we'll do:
+
+Understand how Convex databases work
+
+Create our first schema file
+
+Define the agents table
+
+Write a query to fetch agents
+
+Display data on the frontend
+
+Time to complete: 30-40 minutes
+
+How Convex Works
+Before we write code, let's understand what makes Convex special.
+
+Traditional Backend vs Convex
+Traditional approach:
+
+Set up a database server (PostgreSQL, MongoDB, etc.)
+
+Write API endpoints (Express, FastAPI, etc.)
+
+Handle WebSocket connections for real-time
+
+Write database queries
+
+Handle authentication, caching, error handling
+
+Deploy and manage infrastructure
+
+With Convex:
+
+Define your schema
+
+Write functions
+
+That's it
+
+Key Concepts
+1. Schema = Your Database Structure
+
+You define tables and their fields in TypeScript:
+
+agents: defineTable({
+  name: v.string(),
+  status: v.string(),
+})
+This creates an agents table with name and status fields.
+
+2. Queries = Read Data
+
+Queries fetch data and automatically re-run when data changes:
+
+export const getAllAgents = query(async (ctx) => {
+  return await ctx.db.query("agents").collect();
+});
+Call this from React and it subscribes to live updates.
+
+3. Mutations = Write Data
+
+Mutations create, update, or delete data:
+
+export const createAgent = mutation(async (ctx, { name }) => {
+  return await ctx.db.insert("agents", { name, status: "offline" });
+});
+4. Everything is Type-Safe
+
+TypeScript knows exactly what fields exist and their types. Your editor will autocomplete and catch errors.
+
+Step 1: Create the Schema File
+Create a new file in the convex/ directory:
+
+touch convex/schema.ts
+This file defines your entire database structure.
+
+File: `convex/schema.ts`
+
+import { defineSchema, defineTable } from "convex/server";
+import { v } from "convex/values";
+
+export default defineSchema({
+  agents: defineTable({
+    name: v.string(),
+    status: v.union(v.literal("online"), v.literal("offline"), v.literal("error")),
+    lastHeartbeat: v.number(),
+    metadata: v.optional(v.object({
+      version: v.optional(v.string()),
+      platform: v.optional(v.string()),
+    })),
+  })
+  .index("by_status", ["status"])
+  .index("by_lastHeartbeat", ["lastHeartbeat"]),
+});
+Let's break this down:
+
+Understanding the Schema
+Import statements:
+
+import { defineSchema, defineTable } from "convex/server";
+import { v } from "convex/values";
+defineSchema: Creates the database schema
+
+defineTable: Defines a single table
+
+v: Validator for field types
+
+The agents table:
+
+agents: defineTable({
+  name: v.string(),
+  status: v.union(v.literal("online"), v.literal("offline"), v.literal("error")),
+  lastHeartbeat: v.number(),
+  metadata: v.optional(v.object({
+    version: v.optional(v.string()),
+    platform: v.optional(v.string()),
+  })),
+})
+Field explanations:
+
+`name: v.string()`
+
+  - Agent's name (e.g., "email-monitor", "twitter-bot")
+
+  - Required field
+
+  - Type: string
+
+`status: v.union(...)`
+
+  - Current agent status
+
+  - Must be exactly "online", "offline", or "error"
+
+  - v.union = one of these options
+
+  - v.literal = exact string match
+
+  - Type-safe! Can't accidentally set status to "active" or "dead"
+
+`lastHeartbeat: v.number()`
+
+  - Timestamp of last heartbeat (milliseconds since epoch)
+
+  - We'll use Date.now() to set this
+
+  - Type: number
+
+`metadata: v.optional(v.object(...))`
+
+  - Optional additional information
+
+  - Can include version, platform, etc.
+
+  - v.optional = field can be omitted
+
+  - Nested object with optional fields
+
+Indexes:
+
+.index("by_status", ["status"])
+.index("by_lastHeartbeat", ["lastHeartbeat"])
+Indexes make queries faster:
+
+`by_status`: Quickly find all agents with a specific status
+
+`by_lastHeartbeat`: Efficiently sort agents by last heartbeat time
+
+Without indexes, Convex would scan every record. With indexes, lookups are instant.
+
+What Happens When You Save
+Save the file. In your npx convex dev terminal, you'll see:
+
+✓ Schema updated
+✓ agents table created
+✓ Indexes created
+Your database now exists! Convex automatically created the table based on your schema.
+
+Step 2: Create a Query to Fetch Agents
+Let's write a function to fetch all agents from the database.
+
+Create a new file:
+
+touch convex/agents.ts
+File: `convex/agents.ts`
+
+import { query, mutation } from "./_generated/server";
+import { v } from "convex/values";
+
+// Query: Get all agents
+export const getAllAgents = query({
+  handler: async (ctx) => {
+    const agents = await ctx.db.query("agents").collect();
+    return agents;
+  },
+});
+
+// Query: Get agents by status
+export const getAgentsByStatus = query({
+  args: {
+    status: v.union(v.literal("online"), v.literal("offline"), v.literal("error")),
+  },
+  handler: async (ctx, args) => {
+    const agents = await ctx.db
+      .query("agents")
+      .withIndex("by_status", (q) => q.eq("status", args.status))
+      .collect();
+    return agents;
+  },
+});
+
+// Mutation: Create a new agent
+export const createAgent = mutation({
+  args: {
+    name: v.string(),
+    metadata: v.optional(v.object({
+      version: v.optional(v.string()),
+      platform: v.optional(v.string()),
+    })),
+  },
+  handler: async (ctx, args) => {
+    const agentId = await ctx.db.insert("agents", {
+      name: args.name,
+      status: "offline",
+      lastHeartbeat: Date.now(),
+      metadata: args.metadata,
+    });
+    return agentId;
+  },
+});
+
+// Mutation: Update agent heartbeat
+export const updateHeartbeat = mutation({
+  args: {
+    agentId: v.id("agents"),
+    status: v.union(v.literal("online"), v.literal("offline"), v.literal("error")),
+  },
+  handler: async (ctx, args) => {
+    await ctx.db.patch(args.agentId, {
+      status: args.status,
+      lastHeartbeat: Date.now(),
+    });
+  },
+});
+Understanding the Queries and Mutations
+`getAllAgents` query:
+
+export const getAllAgents = query({
+  handler: async (ctx) => {
+    const agents = await ctx.db.query("agents").collect();
+    return agents;
+  },
+});
+Fetches all agents from the database
+
+ctx.db.query("agents") = query the agents table
+
+.collect() = return all results as an array
+
+No arguments needed
+
+`getAgentsByStatus` query:
+
+export const getAgentsByStatus = query({
+  args: {
+    status: v.union(v.literal("online"), v.literal("offline"), v.literal("error")),
+  },
+  handler: async (ctx, args) => {
+    const agents = await ctx.db
+      .query("agents")
+      .withIndex("by_status", (q) => q.eq("status", args.status))
+      .collect();
+    return agents;
+  },
+});
+Fetches agents filtered by status
+
+args: { status: ... } = accepts a status parameter
+
+.withIndex("by_status", ...) = use the index for fast lookup
+
+.eq("status", args.status) = filter where status equals the argument
+
+`createAgent` mutation:
+
+export const createAgent = mutation({
+  args: {
+    name: v.string(),
+    metadata: v.optional(...),
+  },
+  handler: async (ctx, args) => {
+    const agentId = await ctx.db.insert("agents", {
+      name: args.name,
+      status: "offline",
+      lastHeartbeat: Date.now(),
+      metadata: args.metadata,
+    });
+    return agentId;
+  },
+});
+Creates a new agent
+
+ctx.db.insert("agents", {...}) = insert into agents table
+
+Sets initial status to "offline"
+
+Sets lastHeartbeat to current time
+
+Returns the new agent's ID
+
+`updateHeartbeat` mutation:
+
+export const updateHeartbeat = mutation({
+  args: {
+    agentId: v.id("agents"),
+    status: v.union(...),
+  },
+  handler: async (ctx, args) => {
+    await ctx.db.patch(args.agentId, {
+      status: args.status,
+      lastHeartbeat: Date.now(),
+    });
+  },
+});
+Updates an existing agent's heartbeat
+
+v.id("agents") = typed ID for agents table
+
+ctx.db.patch(id, {...}) = update specific fields
+
+Updates status and timestamp
+
+Step 3: Add Sample Data
+Let's create some test agents so we have data to work with.
+
+Create a new file for seeding data:
+
+touch convex/seed.ts
+File: `convex/seed.ts`
+
+import { mutation } from "./_generated/server";
+
+export const seedAgents = mutation({
+  handler: async (ctx) => {
+    // Check if agents already exist
+    const existingAgents = await ctx.db.query("agents").collect();
+    if (existingAgents.length > 0) {
+      return { message: "Agents already exist, skipping seed" };
+    }
+
+    // Create sample agents
+    await ctx.db.insert("agents", {
+      name: "email-monitor",
+      status: "online",
+      lastHeartbeat: Date.now(),
+      metadata: {
+        version: "1.0.0",
+        platform: "node",
+      },
+    });
+
+    await ctx.db.insert("agents", {
+      name: "twitter-bot",
+      status: "online",
+      lastHeartbeat: Date.now() - 30000, // 30 seconds ago
+      metadata: {
+        version: "1.2.3",
+        platform: "python",
+      },
+    });
+
+    await ctx.db.insert("agents", {
+      name: "data-processor",
+      status: "offline",
+      lastHeartbeat: Date.now() - 300000, // 5 minutes ago
+      metadata: {
+        version: "2.0.0",
+        platform: "node",
+      },
+    });
+
+    await ctx.db.insert("agents", {
+      name: "backup-service",
+      status: "error",
+      lastHeartbeat: Date.now() - 600000, // 10 minutes ago
+      metadata: {
+        version: "0.9.0",
+        platform: "go",
+      },
+    });
+
+    return { message: "Seeded 4 agents successfully" };
+  },
+});
+Run the seed function:
+
+Open your browser and go to the Convex Dashboard:
+
+Go to convex.dev/deployment
+
+Click on your mission-control project
+
+Click "Functions" in the sidebar
+
+Find seed:seedAgents
+
+Click "Run"
+
+You'll see: { "message": "Seeded 4 agents successfully" }
+
+Alternatively, run from terminal:
+
+npx convex run seed:seedAgents
+Step 4: Display Agents in the Frontend
+Now let's display our agents on the home page.
+
+File: `app/page.tsx`
+
+Replace with:
+
+"use client";
+
+import { useQuery } from "convex/react";
+import { api } from "../convex/_generated/api";
+
+export default function Home() {
+  const agents = useQuery(api.agents.getAllAgents);
+
+  return (
+    <main className="min-h-screen bg-gray-900 text-white p-8">
+      <div className="max-w-6xl mx-auto">
+        <h1 className="text-4xl font-bold mb-2">Mission Control</h1>
+        <p className="text-gray-400 text-lg mb-8">
+          AI Agent Monitoring Dashboard
+        </p>
+
+        <div className="mb-8">
+          <h2 className="text-2xl font-semibold mb-4">Active Agents</h2>
+          
+          {agents === undefined ? (
+            <p className="text-gray-400">Loading agents...</p>
+          ) : agents.length === 0 ? (
+            <p className="text-gray-400">No agents found. Run the seed function.</p>
+          ) : (
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {agents.map((agent) => (
+                <div
+                  key={agent._id}
+                  className="p-6 bg-gray-800 rounded-lg border border-gray-700"
+                >
+                  <div className="flex items-center justify-between mb-3">
+                    <h3 className="text-xl font-semibold">{agent.name}</h3>
+                    <StatusBadge status={agent.status} />
+                  </div>
+                  
+                  <div className="text-sm text-gray-400 space-y-1">
+                    <p>
+                      Last seen:{" "}
+                      {formatTimestamp(agent.lastHeartbeat)}
+                    </p>
+                    {agent.metadata && (
+                      <>
+                        {agent.metadata.version && (
+                          <p>Version: {agent.metadata.version}</p>
+                        )}
+                        {agent.metadata.platform && (
+                          <p>Platform: {agent.metadata.platform}</p>
+                        )}
+                      </>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </main>
+  );
+}
+
+function StatusBadge({ status }: { status: "online" | "offline" | "error" }) {
+  const styles = {
+    online: "bg-green-500/10 text-green-400 border-green-500/20",
+    offline: "bg-gray-500/10 text-gray-400 border-gray-500/20",
+    error: "bg-red-500/10 text-red-400 border-red-500/20",
+  };
+
+  const labels = {
+    online: "Online",
+    offline: "Offline",
+    error: "Error",
+  };
+
+  return (
+    <span
+      className={`px-3 py-1 rounded-full text-xs font-semibold border ${styles[status]}`}
+    >
+      {labels[status]}
+    </span>
+  );
+}
+
+function formatTimestamp(timestamp: number): string {
+  const seconds = Math.floor((Date.now() - timestamp) / 1000);
+  
+  if (seconds < 60) return `${seconds}s ago`;
+  if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
+  if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
+  return `${Math.floor(seconds / 86400)}d ago`;
+}
+Understanding the Frontend Code
+Client component:
+
+"use client";
+Must be a client component to use Convex hooks.
+
+Fetching data:
+
+const agents = useQuery(api.agents.getAllAgents);
+useQuery subscribes to the query
+
+Automatically re-renders when data changes
+
+api.agents.getAllAgents = type-safe reference to our query
+
+Loading states:
+
+{agents === undefined ? (
+  <p>Loading agents...</p>
+) : agents.length === 0 ? (
+  <p>No agents found.</p>
+) : (
+  // Display agents
+)}
+undefined = still loading
+
+Empty array = no data
+
+Otherwise = display the data
+
+Rendering agents:
+
+<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+  {agents.map((agent) => (
+    <div key={agent._id}>
+      {/* Agent card */}
+    </div>
+  ))}
+</div>
+Responsive grid (1 column on mobile, 2 on tablet, 3 on desktop)
+
+Each agent gets a card
+
+key={agent._id} for React list performance
+
+Status badge:
+
+function StatusBadge({ status }) {
+  // Color-coded badge based on status
+}
+Green for online
+
+Gray for offline
+
+Red for error
+
+Timestamp formatting:
+
+function formatTimestamp(timestamp) {
+  // "5m ago", "2h ago", etc.
+}
+Human-readable relative times
+
+Updates automatically as time passes
+
+Step 5: See It Live
+Make sure both servers are running:
+
+# Terminal 1
+npm run dev
+
+# Terminal 2
+npx convex dev
+Open http://localhost:3000
+
+You should see:
+
+"Active Agents" heading
+
+Four agent cards (email-monitor, twitter-bot, data-processor, backup-service)
+
+Color-coded status badges (green, gray, red)
+
+Metadata (version, platform)
+
+Relative timestamps ("30s ago", "5m ago", etc.)
+
+Try this: Open the Convex dashboard, manually change an agent's status, and watch it update in real-time on your page!
+
+Understanding Real-Time Updates
+Here's the magic of Convex:
+
+Traditional approach:
+
+User loads page → API call fetches data
+
+Data changes on server → User sees stale data
+
+User refreshes page → New data appears
+
+With Convex:
+
+User loads page → Subscribe to query
+
+Data changes on server → Update pushed to client instantly
+
+Page updates automatically → No refresh needed
+
+Try it yourself:
+
+Open localhost:3000
+
+Open Convex dashboard in another tab
+
+Change an agent's status
+
+Watch your page update WITHOUT refreshing
+
+This is the power of real-time subscriptions.
+
+Common Errors and Fixes
+Error: "Cannot find module '../convex/_generated/api'"
+Cause: Convex hasn't generated the API types yet
+
+Fix:
+
+Make sure npx convex dev is running
+
+Wait 5-10 seconds for generation
+
+Restart your Next.js server if needed
+
+Error: "Query agents:getAllAgents not found"
+Cause: Function not deployed or typo
+
+Fix:
+
+Check that convex/agents.ts is saved
+
+Look at npx convex dev terminal for errors
+
+Verify the function name matches exactly
+
+Agents not showing up
+Cause: Haven't run seed function
+
+Fix:
+
+npx convex run seed:seedAgents
+TypeScript errors in editor
+Cause: Types not regenerated
+
+Fix:
+
+Save all files
+
+Wait for Convex to regenerate types
+
+Restart TypeScript server in VS Code (Cmd+Shift+P → "Restart TS Server")
+
+"Cannot read property '_id' of undefined"
+Cause: Trying to access agents before they load
+
+Fix: Always check for undefined:
+
+{agents === undefined ? <Loading /> : <DisplayAgents />}
+What We Built in This Module
+Let's review what you accomplished:
+
+✅ Created a database schema with the agents table
+
+✅ Defined indexed fields for fast queries
+
+✅ Wrote queries to fetch agents
+
+✅ Wrote mutations to create and update agents
+
+✅ Seeded sample data
+
+✅ Displayed agents in a responsive grid
+
+✅ Implemented real-time updates
+
+✅ Added status badges and timestamp formatting
+
+Testing Your Understanding
+Try these experiments:
+
+1. Add a new field:
+
+Add email: v.string() to the agents schema
+
+Update the seed function to include emails
+
+Display emails on the agent cards
+
+2. Create a new query:
+
+Write a query that fetches only online agents
+
+Display them in a separate section
+
+3. Add a delete button:
+
+Create a deleteAgent mutation
+
+Add a button to each card that calls it
+
+Next Steps
+Your database is now up and running! In Module 4: Agent Schema Design, we'll:
+
+Add the activities table for logging agent actions
+
+Add the tasks table for task management
+
+Create relationships between tables
+
+Write more complex queries
+
+The data model is about to get more interesting! 📊
+
+Time to complete Module 3: 30-40 minutes
+
+Next module: Module 4 - Agent Schema Design
+
+
+Chapter 1
+Agent Schema & API Design
+
+Content
+
+Notes
+Module 4: Agent Schema Design
+Overview
+In this module, we'll expand our database schema to include activities and tasks. You'll learn how to design related tables, create meaningful relationships, and query across them.
+
+What we'll do:
+
+Design the activities table for logging
+
+Design the tasks table for task management
+
+Add indexes for performance
+
+Write queries across multiple tables
+
+Seed comprehensive test data
+
+Time to complete: 40-50 minutes
+
+Understanding the Data Model
+Before we code, let's understand how our three tables relate:
+
+Agents → The workers doing the job
+
+Examples: "email-monitor", "twitter-bot", "backup-service"
+
+Activities → What agents are doing
+
+Examples: "Checked 15 emails", "Posted tweet", "Backup completed"
+
+Each activity belongs to ONE agent
+
+Tasks → Work assigned to agents
+
+Examples: "Process customer emails", "Post daily summary"
+
+Each task can be assigned to ONE agent
+
+Tasks have statuses: pending, in-progress, complete
+
+Relationships:
+
+Agent (1) ←→ (many) Activities
+Agent (1) ←→ (many) Tasks
+One agent can have many activities and many tasks.
+
+Step 1: Expand the Schema
+Let's update our schema to include all three tables.
+
+File: `convex/schema.ts`
+
+Replace the entire file with:
+
+import { defineSchema, defineTable } from "convex/server";
+import { v } from "convex/values";
+
+export default defineSchema({
+  // Agents table
+  agents: defineTable({
+    name: v.string(),
+    status: v.union(
+      v.literal("online"),
+      v.literal("offline"),
+      v.literal("error")
+    ),
+    lastHeartbeat: v.number(),
+    metadata: v.optional(
+      v.object({
+        version: v.optional(v.string()),
+        platform: v.optional(v.string()),
+        tags: v.optional(v.array(v.string())),
+      })
+    ),
+  })
+    .index("by_status", ["status"])
+    .index("by_lastHeartbeat", ["lastHeartbeat"])
+    .index("by_name", ["name"]),
+
+  // Activities table
+  activities: defineTable({
+    agentId: v.id("agents"), // Reference to agents table
+    type: v.string(), // "info", "warning", "error", "success"
+    message: v.string(),
+    timestamp: v.number(),
+    metadata: v.optional(
+      v.object({
+        duration: v.optional(v.number()),
+        details: v.optional(v.string()),
+      })
+    ),
+  })
+    .index("by_agent", ["agentId"])
+    .index("by_timestamp", ["timestamp"])
+    .index("by_agent_and_timestamp", ["agentId", "timestamp"])
+    .index("by_type", ["type"]),
+
+  // Tasks table
+  tasks: defineTable({
+    title: v.string(),
+    description: v.optional(v.string()),
+    status: v.union(
+      v.literal("pending"),
+      v.literal("in-progress"),
+      v.literal("complete"),
+      v.literal("failed")
+    ),
+    priority: v.union(
+      v.literal("low"),
+      v.literal("medium"),
+      v.literal("high")
+    ),
+    assignedTo: v.optional(v.id("agents")), // Optional agent assignment
+    createdAt: v.number(),
+    updatedAt: v.number(),
+    completedAt: v.optional(v.number()),
+    dueAt: v.optional(v.number()),
+  })
+    .index("by_status", ["status"])
+    .index("by_assignedTo", ["assignedTo"])
+    .index("by_priority", ["priority"])
+    .index("by_status_and_priority", ["status", "priority"])
+    .index("by_createdAt", ["createdAt"]),
+});
+Understanding the New Tables
+Activities Table
+activities: defineTable({
+  agentId: v.id("agents"),
+  type: v.string(),
+  message: v.string(),
+  timestamp: v.number(),
+  metadata: v.optional(v.object({
+    duration: v.optional(v.number()),
+    details: v.optional(v.string()),
+  })),
+})
+Fields explained:
+
+`agentId: v.id("agents")`
+
+  - Links to the agents table
+
+  - v.id("agents") creates a typed reference
+
+  - Every activity belongs to exactly one agent
+
+`type: v.string()`
+
+  - Activity category: "info", "warning", "error", "success"
+
+  - Used for filtering and visual styling
+
+`message: v.string()`
+
+  - Human-readable description
+
+  - Example: "Processed 15 emails", "API request failed"
+
+`timestamp: v.number()`
+
+  - When the activity occurred
+
+  - Used for sorting and filtering by time
+
+`metadata: v.optional(...)`
+
+  - Additional context
+
+  - duration: How long it took (in milliseconds)
+
+  - details: Extra information or stack traces
+
+Indexes explained:
+
+.index("by_agent", ["agentId"])
+Fast lookup: "Get all activities for this agent"
+
+.index("by_timestamp", ["timestamp"])
+Fast sorting: "Get most recent activities"
+
+.index("by_agent_and_timestamp", ["agentId", "timestamp"])
+Compound index: "Get recent activities for this specific agent"
+
+.index("by_type", ["type"])
+Fast filtering: "Get all errors"
+
+Tasks Table
+tasks: defineTable({
+  title: v.string(),
+  description: v.optional(v.string()),
+  status: v.union(
+    v.literal("pending"),
+    v.literal("in-progress"),
+    v.literal("complete"),
+    v.literal("failed")
+  ),
+  priority: v.union(
+    v.literal("low"),
+    v.literal("medium"),
+    v.literal("high")
+  ),
+  assignedTo: v.optional(v.id("agents")),
+  createdAt: v.number(),
+  updatedAt: v.number(),
+  completedAt: v.optional(v.number()),
+  dueAt: v.optional(v.number()),
+})
+Fields explained:
+
+`title: v.string()`
+
+  - Short task name
+
+  - Example: "Process customer emails"
+
+`description: v.optional(v.string())`
+
+  - Detailed instructions
+
+  - Optional for simple tasks
+
+`status: v.union(...)`
+
+  - Current task state
+
+  - Workflow: pending → in-progress → complete/failed
+
+`priority: v.union(...)`
+
+  - Urgency level
+
+  - Used for sorting and visual indicators
+
+`assignedTo: v.optional(v.id("agents"))`
+
+  - Which agent is working on this
+
+  - Optional (unassigned tasks exist)
+
+`createdAt: v.number()`
+
+  - When task was created
+
+`updatedAt: v.number()`
+
+  - Last modification time
+
+`completedAt: v.optional(v.number())`
+
+  - When task finished (only for complete/failed)
+
+`dueAt: v.optional(v.number())`
+
+  - Deadline (optional)
+
+Indexes explained:
+
+.index("by_status_and_priority", ["status", "priority"])
+Compound index for: "Get pending high-priority tasks"
+
+This allows efficient queries like:
+
+ctx.db.query("tasks")
+  .withIndex("by_status_and_priority", q => 
+    q.eq("status", "pending").eq("priority", "high")
+  )
+Step 2: Create Activities Queries and Mutations
+Create a new file for activity functions:
+
+touch convex/activities.ts
+File: `convex/activities.ts`
+
+import { query, mutation } from "./_generated/server";
+import { v } from "convex/values";
+
+// Query: Get all activities (recent first)
+export const getAllActivities = query({
+  args: {
+    limit: v.optional(v.number()),
+  },
+  handler: async (ctx, args) => {
+    const limit = args.limit ?? 50;
+    
+    const activities = await ctx.db
+      .query("activities")
+      .withIndex("by_timestamp")
+      .order("desc")
+      .take(limit);
+
+    // Enrich with agent information
+    const enrichedActivities = await Promise.all(
+      activities.map(async (activity) => {
+        const agent = await ctx.db.get(activity.agentId);
+        return {
+          ...activity,
+          agentName: agent?.name ?? "Unknown",
+        };
+      })
+    );
+
+    return enrichedActivities;
+  },
+});
+
+// Query: Get activities for a specific agent
+export const getAgentActivities = query({
+  args: {
+    agentId: v.id("agents"),
+    limit: v.optional(v.number()),
+  },
+  handler: async (ctx, args) => {
+    const limit = args.limit ?? 50;
+    
+    const activities = await ctx.db
+      .query("activities")
+      .withIndex("by_agent_and_timestamp", (q) =>
+        q.eq("agentId", args.agentId)
+      )
+      .order("desc")
+      .take(limit);
+
+    return activities;
+  },
+});
+
+// Query: Get activities by type
+export const getActivitiesByType = query({
+  args: {
+    type: v.string(),
+    limit: v.optional(v.number()),
+  },
+  handler: async (ctx, args) => {
+    const limit = args.limit ?? 50;
+    
+    const activities = await ctx.db
+      .query("activities")
+      .withIndex("by_type", (q) => q.eq("type", args.type))
+      .order("desc")
+      .take(limit);
+
+    return activities;
+  },
+});
+
+// Mutation: Log a new activity
+export const logActivity = mutation({
+  args: {
+    agentId: v.id("agents"),
+    type: v.string(),
+    message: v.string(),
+    metadata: v.optional(
+      v.object({
+        duration: v.optional(v.number()),
+        details: v.optional(v.string()),
+      })
+    ),
+  },
+  handler: async (ctx, args) => {
+    const activityId = await ctx.db.insert("activities", {
+      agentId: args.agentId,
+      type: args.type,
+      message: args.message,
+      timestamp: Date.now(),
+      metadata: args.metadata,
+    });
+
+    return activityId;
+  },
+});
+
+// Mutation: Delete old activities (cleanup)
+export const deleteOldActivities = mutation({
+  args: {
+    olderThanDays: v.number(),
+  },
+  handler: async (ctx, args) => {
+    const cutoffTime = Date.now() - args.olderThanDays * 24 * 60 * 60 * 1000;
+    
+    const oldActivities = await ctx.db
+      .query("activities")
+      .withIndex("by_timestamp")
+      .filter((q) => q.lt(q.field("timestamp"), cutoffTime))
+      .collect();
+
+    for (const activity of oldActivities) {
+      await ctx.db.delete(activity._id);
+    }
+
+    return { deleted: oldActivities.length };
+  },
+});
+Key Patterns
+Enriching data with relationships:
+
+const enrichedActivities = await Promise.all(
+  activities.map(async (activity) => {
+    const agent = await ctx.db.get(activity.agentId);
+    return {
+      ...activity,
+      agentName: agent?.name ?? "Unknown",
+    };
+  })
+);
+This fetches the related agent for each activity, adding the agent name to the result.
+
+Using compound indexes:
+
+.withIndex("by_agent_and_timestamp", (q) =>
+  q.eq("agentId", args.agentId)
+)
+.order("desc")
+Efficiently gets activities for one agent, sorted by time.
+
+Step 3: Create Tasks Queries and Mutations
+Create a file for task functions:
+
+touch convex/tasks.ts
+File: `convex/tasks.ts`
+
+import { query, mutation } from "./_generated/server";
+import { v } from "convex/values";
+
+// Query: Get all tasks
+export const getAllTasks = query({
+  handler: async (ctx) => {
+    const tasks = await ctx.db.query("tasks").order("desc").collect();
+
+    // Enrich with agent information
+    const enrichedTasks = await Promise.all(
+      tasks.map(async (task) => {
+        if (task.assignedTo) {
+          const agent = await ctx.db.get(task.assignedTo);
+          return {
+            ...task,
+            agentName: agent?.name ?? "Unknown",
+          };
+        }
+        return {
+          ...task,
+          agentName: null,
+        };
+      })
+    );
+
+    return enrichedTasks;
+  },
+});
+
+// Query: Get tasks by status
+export const getTasksByStatus = query({
+  args: {
+    status: v.union(
+      v.literal("pending"),
+      v.literal("in-progress"),
+      v.literal("complete"),
+      v.literal("failed")
+    ),
+  },
+  handler: async (ctx, args) => {
+    const tasks = await ctx.db
+      .query("tasks")
+      .withIndex("by_status", (q) => q.eq("status", args.status))
+      .collect();
+
+    return tasks;
+  },
+});
+
+// Query: Get tasks assigned to an agent
+export const getAgentTasks = query({
+  args: {
+    agentId: v.id("agents"),
+  },
+  handler: async (ctx, args) => {
+    const tasks = await ctx.db
+      .query("tasks")
+      .withIndex("by_assignedTo", (q) => q.eq("assignedTo", args.agentId))
+      .collect();
+
+    return tasks;
+  },
+});
+
+// Mutation: Create a new task
+export const createTask = mutation({
+  args: {
+    title: v.string(),
+    description: v.optional(v.string()),
+    priority: v.union(v.literal("low"), v.literal("medium"), v.literal("high")),
+    assignedTo: v.optional(v.id("agents")),
+    dueAt: v.optional(v.number()),
+  },
+  handler: async (ctx, args) => {
+    const now = Date.now();
+    
+    const taskId = await ctx.db.insert("tasks", {
+      title: args.title,
+      description: args.description,
+      status: "pending",
+      priority: args.priority,
+      assignedTo: args.assignedTo,
+      createdAt: now,
+      updatedAt: now,
+      dueAt: args.dueAt,
+    });
+
+    return taskId;
+  },
+});
+
+// Mutation: Update task status
+export const updateTaskStatus = mutation({
+  args: {
+    taskId: v.id("tasks"),
+    status: v.union(
+      v.literal("pending"),
+      v.literal("in-progress"),
+      v.literal("complete"),
+      v.literal("failed")
+    ),
+  },
+  handler: async (ctx, args) => {
+    const now = Date.now();
+    const updates: any = {
+      status: args.status,
+      updatedAt: now,
+    };
+
+    // Set completedAt when task finishes
+    if (args.status === "complete" || args.status === "failed") {
+      updates.completedAt = now;
+    }
+
+    await ctx.db.patch(args.taskId, updates);
+  },
+});
+
+// Mutation: Assign task to agent
+export const assignTask = mutation({
+  args: {
+    taskId: v.id("tasks"),
+    agentId: v.optional(v.id("agents")),
+  },
+  handler: async (ctx, args) => {
+    await ctx.db.patch(args.taskId, {
+      assignedTo: args.agentId,
+      updatedAt: Date.now(),
+    });
+  },
+});
+
+// Mutation: Delete a task
+export const deleteTask = mutation({
+  args: {
+    taskId: v.id("tasks"),
+  },
+  handler: async (ctx, args) => {
+    await ctx.db.delete(args.taskId);
+  },
+});
+Understanding Task Workflows
+Creating a task:
+
+const taskId = await ctx.db.insert("tasks", {
+  status: "pending",    // Always starts as pending
+  createdAt: now,
+  updatedAt: now,
+  // ... other fields
+});
+Updating task status:
+
+if (args.status === "complete" || args.status === "failed") {
+  updates.completedAt = now;
+}
+Automatically records when a task finishes.
+
+Task lifecycle:
+
+pending → in-progress → complete
+                     ↘ failed
+Step 4: Seed Comprehensive Test Data
+Let's create realistic test data for all three tables.
+
+File: `convex/seed.ts`
+
+Replace with:
+
+import { mutation } from "./_generated/server";
+
+export const seedAll = mutation({
+  handler: async (ctx) => {
+    // Check if data exists
+    const existingAgents = await ctx.db.query("agents").collect();
+    if (existingAgents.length > 0) {
+      return { message: "Data already exists, skipping seed" };
+    }
+
+    // Create agents
+    const emailMonitor = await ctx.db.insert("agents", {
+      name: "email-monitor",
+      status: "online",
+      lastHeartbeat: Date.now(),
+      metadata: {
+        version: "1.0.0",
+        platform: "node",
+        tags: ["email", "monitoring"],
+      },
+    });
+
+    const twitterBot = await ctx.db.insert("agents", {
+      name: "twitter-bot",
+      status: "online",
+      lastHeartbeat: Date.now() - 30000,
+      metadata: {
+        version: "1.2.3",
+        platform: "python",
+        tags: ["social", "twitter"],
+      },
+    });
+
+    const dataProcessor = await ctx.db.insert("agents", {
+      name: "data-processor",
+      status: "offline",
+      lastHeartbeat: Date.now() - 300000,
+      metadata: {
+        version: "2.0.0",
+        platform: "node",
+        tags: ["data", "etl"],
+      },
+    });
+
+    const backupService = await ctx.db.insert("agents", {
+      name: "backup-service",
+      status: "error",
+      lastHeartbeat: Date.now() - 600000,
+      metadata: {
+        version: "0.9.0",
+        platform: "go",
+        tags: ["backup", "storage"],
+      },
+    });
+
+    // Create activities
+    const activities = [
+      {
+        agentId: emailMonitor,
+        type: "success",
+        message: "Processed 15 new emails",
+        timestamp: Date.now() - 60000,
+        metadata: { duration: 2300 },
+      },
+      {
+        agentId: emailMonitor,
+        type: "info",
+        message: "Connected to email server",
+        timestamp: Date.now() - 120000,
+      },
+      {
+        agentId: twitterBot,
+        type: "success",
+        message: "Posted daily summary tweet",
+        timestamp: Date.now() - 90000,
+      },
+      {
+        agentId: twitterBot,
+        type: "warning",
+        message: "Rate limit approaching (80% used)",
+        timestamp: Date.now() - 45000,
+      },
+      {
+        agentId: dataProcessor,
+        type: "error",
+        message: "Database connection timeout",
+        timestamp: Date.now() - 300000,
+        metadata: {
+          details: "Failed to connect to postgres://...",
+        },
+      },
+      {
+        agentId: backupService,
+        type: "error",
+        message: "Backup failed: disk full",
+        timestamp: Date.now() - 600000,
+        metadata: {
+          details: "Available space: 0 MB",
+        },
+      },
+    ];
+
+    for (const activity of activities) {
+      await ctx.db.insert("activities", activity);
+    }
+
+    // Create tasks
+    await ctx.db.insert("tasks", {
+      title: "Process customer feedback emails",
+      description: "Analyze sentiment and categorize",
+      status: "in-progress",
+      priority: "high",
+      assignedTo: emailMonitor,
+      createdAt: Date.now() - 3600000,
+      updatedAt: Date.now() - 60000,
+      dueAt: Date.now() + 7200000,
+    });
+
+    await ctx.db.insert("tasks", {
+      title: "Post weekly engagement report",
+      description: "Compile and tweet analytics",
+      status: "pending",
+      priority: "medium",
+      assignedTo: twitterBot,
+      createdAt: Date.now() - 1800000,
+      updatedAt: Date.now() - 1800000,
+      dueAt: Date.now() + 86400000,
+    });
+
+    await ctx.db.insert("tasks", {
+      title: "Investigate backup failures",
+      description: "Check disk space and logs",
+      status: "pending",
+      priority: "high",
+      createdAt: Date.now() - 600000,
+      updatedAt: Date.now() - 600000,
+    });
+
+    await ctx.db.insert("tasks", {
+      title: "Update data models",
+      description: "Add new fields to user schema",
+      status: "complete",
+      priority: "low",
+      assignedTo: dataProcessor,
+      createdAt: Date.now() - 86400000,
+      updatedAt: Date.now() - 3600000,
+      completedAt: Date.now() - 3600000,
+    });
+
+    return {
+      message: "Seeded successfully",
+      counts: {
+        agents: 4,
+        activities: 6,
+        tasks: 4,
+      },
+    };
+  },
+});
+Run the seed:
+
+npx convex run seed:seedAll
+You should see:
+
+{
+  "message": "Seeded successfully",
+  "counts": {
+    "agents": 4,
+    "activities": 6,
+    "tasks": 4
+  }
+}
+Step 5: Test Cross-Table Queries
+Let's verify our schema works by testing some queries in the Convex dashboard.
+
+Go to: convex.dev/deployment → Your project → Functions
+
+Try these:
+
+Get all activities with agent names:
+
+   - Function: activities:getAllActivities
+
+   - Run with: { "limit": 10 }
+
+Get pending tasks:
+
+   - Function: tasks:getTasksByStatus
+
+   - Run with: { "status": "pending" }
+
+Get activities for email-monitor:
+
+   - First, get the agent ID from agents:getAllAgents
+
+   - Then run activities:getAgentActivities with { "agentId": "<agent_id>" }
+
+All queries should return data successfully.
+
+What We Built in This Module
+Let's review what you accomplished:
+
+✅ Designed a complete three-table schema (agents, activities, tasks)
+
+✅ Created typed relationships with v.id()
+
+✅ Added strategic indexes for query performance
+
+✅ Wrote queries to fetch and filter data
+
+✅ Wrote mutations to create and update records
+
+✅ Implemented data enrichment (joining agent info)
+
+✅ Seeded realistic test data across all tables
+
+✅ Tested cross-table queries
+
+Database Design Principles
+What we applied:
+
+Normalization – Each table has a clear purpose
+
+Relationships – IDs link related data
+
+Indexes – Compound indexes for common queries
+
+Type Safety – Convex validates all data
+
+Timestamps – Track when things happen
+
+Soft Deletes – Could add deletedAt if needed
+
+Next Steps
+Your data model is complete! In Module 5: Building the Heartbeat System, we'll:
+
+Implement the agent heartbeat mechanism
+
+Create an API endpoint for heartbeats
+
+Update agent status based on heartbeat timing
+
+Build a status indicator UI
+
+Handle timeout detection
+
+Time to bring your agents to life! 💓
+
+Time to complete Module 4: 40-50 minutes
+
+Next module: Module 5 - Building the Heartbeat System
+
+Chapter 1
+The Heartbeat System
+
+Content
+
+Notes
+Module 5: Building the Heartbeat System
+Overview
+The heartbeat system is the core of Mission Control. It's how we know if agents are alive, working, or dead. In this module, you'll build a complete monitoring system that detects failures and updates status in real-time.
+
+What we'll do:
+
+Understand how heartbeat systems work
+
+Create a heartbeat mutation
+
+Build an API endpoint for external agents
+
+Implement status detection logic
+
+Create a background job to check for timeouts
+
+Build visual status indicators
+
+Time to complete: 45-60 minutes
+
+Understanding Heartbeat Systems
+What is a Heartbeat?
+A heartbeat is a periodic signal that says "I'm still alive." It's used in distributed systems to detect failures without constant monitoring.
+
+Analogy: Like a fitness tracker checking your pulse. If it stops detecting a heartbeat, something's wrong.
+
+How It Works
+1. Agent sends heartbeat:
+
+Every 30 seconds:
+  POST /api/heartbeat
+  { agentId: "abc123", status: "online" }
+2. Server updates timestamp:
+
+Update agents table:
+  lastHeartbeat = Date.now()
+  status = "online"
+3. Server checks for missing heartbeats:
+
+Every 60 seconds:
+  Find agents where:
+    lastHeartbeat < (now - 2 minutes)
+  Set their status to "offline"
+Why Heartbeats?
+Without heartbeats:
+
+Agent crashes → You never know
+
+Network fails → Silent failure
+
+Process hangs → Looks fine, does nothing
+
+With heartbeats:
+
+Agent crashes → Heartbeat stops → Status = offline
+
+Network fails → Heartbeat stops → Alert
+
+Process hangs → Heartbeat continues → Different issue to debug
+
+Step 1: Create the Heartbeat Mutation
+Let's add a heartbeat function to our agents file.
+
+File: `convex/agents.ts`
+
+Add this to the existing file:
+
+// Mutation: Record agent heartbeat
+export const heartbeat = mutation({
+  args: {
+    name: v.string(),
+    status: v.optional(
+      v.union(v.literal("online"), v.literal("offline"), v.literal("error"))
+    ),
+    metadata: v.optional(
+      v.object({
+        version: v.optional(v.string()),
+        platform: v.optional(v.string()),
+        tags: v.optional(v.array(v.string())),
+      })
+    ),
+  },
+  handler: async (ctx, args) => {
+    // Find agent by name
+    const existingAgent = await ctx.db
+      .query("agents")
+      .withIndex("by_name", (q) => q.eq("name", args.name))
+      .unique();
+
+    const now = Date.now();
+
+    if (existingAgent) {
+      // Update existing agent
+      await ctx.db.patch(existingAgent._id, {
+        status: args.status ?? "online",
+        lastHeartbeat: now,
+        metadata: args.metadata ?? existingAgent.metadata,
+      });
+
+      return {
+        agentId: existingAgent._id,
+        action: "updated",
+      };
+    } else {
+      // Create new agent
+      const agentId = await ctx.db.insert("agents", {
+        name: args.name,
+        status: args.status ?? "online",
+        lastHeartbeat: now,
+        metadata: args.metadata,
+      });
+
+      return {
+        agentId,
+        action: "created",
+      };
+    }
+  },
+});
+Understanding the Heartbeat Mutation
+Find existing agent:
+
+const existingAgent = await ctx.db
+  .query("agents")
+  .withIndex("by_name", (q) => q.eq("name", args.name))
+  .unique();
+Uses the by_name index for fast lookup
+
+.unique() returns one result (or null)
+
+Auto-create or update:
+
+if (existingAgent) {
+  // Update existing
+  await ctx.db.patch(existingAgent._id, { ... });
+} else {
+  // Create new
+  await ctx.db.insert("agents", { ... });
+}
+This pattern lets agents self-register. No manual setup needed!
+
+Return feedback:
+
+return {
+  agentId: existingAgent._id,
+  action: "updated", // or "created"
+};
+Tells the agent whether it was created or updated.
+
+Step 2: Create an HTTP API Endpoint
+Agents need a public endpoint to send heartbeats. Convex supports HTTP routes.
+
+Create a new file:
+
+touch convex/http.ts
+File: `convex/http.ts`
+
+import { httpRouter } from "convex/server";
+import { httpAction } from "./_generated/server";
+import { api } from "./_generated/api";
+import { v } from "convex/values";
+
+const http = httpRouter();
+
+// POST /api/heartbeat
+http.route({
+  path: "/api/heartbeat",
+  method: "POST",
+  handler: httpAction(async (ctx, request) => {
+    try {
+      // Parse request body
+      const body = await request.json();
+      
+      // Validate required fields
+      if (!body.name || typeof body.name !== "string") {
+        return new Response(
+          JSON.stringify({ error: "Agent name is required" }),
+          {
+            status: 400,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+      }
+
+      // Call the heartbeat mutation
+      const result = await ctx.runMutation(api.agents.heartbeat, {
+        name: body.name,
+        status: body.status,
+        metadata: body.metadata,
+      });
+
+      return new Response(JSON.stringify(result), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
+    } catch (error: any) {
+      console.error("Heartbeat error:", error);
+      return new Response(
+        JSON.stringify({ error: error.message }),
+        {
+          status: 500,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    }
+  }),
+});
+
+export default http;
+Understanding HTTP Routes
+Define a route:
+
+http.route({
+  path: "/api/heartbeat",
+  method: "POST",
+  handler: httpAction(...),
+});
+This creates https://your-convex-url.convex.site/api/heartbeat
+
+Parse JSON body:
+
+const body = await request.json();
+Reads the POST data.
+
+Validate input:
+
+if (!body.name || typeof body.name !== "string") {
+  return new Response(JSON.stringify({ error: "..." }), { status: 400 });
+}
+Always validate external input!
+
+Call internal mutation:
+
+const result = await ctx.runMutation(api.agents.heartbeat, {
+  name: body.name,
+  status: body.status,
+  metadata: body.metadata,
+});
+HTTP actions can call queries and mutations.
+
+Return JSON response:
+
+return new Response(JSON.stringify(result), {
+  status: 200,
+  headers: { "Content-Type": "application/json" },
+});
+Step 3: Test the Heartbeat Endpoint
+Let's test it with curl.
+
+First, get your Convex URL:
+
+Check .env.local:
+
+cat .env.local | grep NEXT_PUBLIC_CONVEX_URL
+You'll see something like:
+
+NEXT_PUBLIC_CONVEX_URL=https://happy-animal-123.convex.cloud
+Send a test heartbeat:
+
+curl -X POST https://happy-animal-123.convex.site/api/heartbeat \
+  -H "Content-Type: application/json" \
+  -d '{"name": "test-agent", "status": "online"}'
+Note: Replace .cloud with .site in the URL!
+
+You should see:
+
+{
+  "agentId": "abc123...",
+  "action": "created"
+}
+Check the Convex dashboard:
+
+Go to Data → agents table. You should see test-agent!
+
+Send another heartbeat:
+
+curl -X POST https://happy-animal-123.convex.site/api/heartbeat \
+  -H "Content-Type: application/json" \
+  -d '{"name": "test-agent", "status": "online"}'
+This time:
+
+{
+  "agentId": "abc123...",
+  "action": "updated"
+}
+The agent was updated, not recreated!
+
+Step 4: Create a Timeout Checker
+We need a background process that marks agents as offline if they haven't sent heartbeats recently.
+
+Convex supports cron jobs (scheduled functions).
+
+File: `convex/crons.ts`
+
+Create a new file:
+
+touch convex/crons.ts
+import { cronJobs } from "convex/server";
+import { internal } from "./_generated/api";
+
+const crons = cronJobs();
+
+// Run every minute
+crons.interval(
+  "check agent timeouts",
+  { minutes: 1 },
+  internal.agents.checkTimeouts
+);
+
+export default crons;
+Now add the timeout checker to agents:
+
+File: `convex/agents.ts`
+
+Add at the top:
+
+import { internalMutation } from "./_generated/server";
+Then add at the bottom:
+
+// Internal mutation: Check for timed-out agents
+export const checkTimeouts = internalMutation({
+  handler: async (ctx) => {
+    const now = Date.now();
+    const timeoutMs = 2 * 60 * 1000; // 2 minutes
+    const cutoff = now - timeoutMs;
+
+    // Find agents that haven't sent heartbeats recently
+    const allAgents = await ctx.db.query("agents").collect();
+    
+    let updated = 0;
+    for (const agent of allAgents) {
+      // Skip if already offline/error
+      if (agent.status !== "online") continue;
+      
+      // Check if heartbeat is stale
+      if (agent.lastHeartbeat < cutoff) {
+        await ctx.db.patch(agent._id, {
+          status: "offline",
+        });
+        
+        // Log activity
+        await ctx.db.insert("activities", {
+          agentId: agent._id,
+          type: "warning",
+          message: "Agent heartbeat timeout - marked offline",
+          timestamp: now,
+        });
+        
+        updated++;
+      }
+    }
+
+    return { checked: allAgents.length, updated };
+  },
+});
+Understanding the Timeout Checker
+Run every minute:
+
+crons.interval("check agent timeouts", { minutes: 1 }, ...);
+Cron job runs automatically every 60 seconds.
+
+Define timeout threshold:
+
+const timeoutMs = 2 * 60 * 1000; // 2 minutes
+const cutoff = now - timeoutMs;
+If last heartbeat is older than 2 minutes, agent is considered dead.
+
+Find stale agents:
+
+for (const agent of allAgents) {
+  if (agent.status !== "online") continue;
+  if (agent.lastHeartbeat < cutoff) {
+    // Mark as offline
+  }
+}
+Log the timeout:
+
+await ctx.db.insert("activities", {
+  agentId: agent._id,
+  type: "warning",
+  message: "Agent heartbeat timeout - marked offline",
+  timestamp: now,
+});
+Creates an activity record so you can see when timeouts happened.
+
+Why `internalMutation`?
+
+Internal mutations can only be called by cron jobs or other internal functions. This prevents external callers from triggering timeout checks.
+
+Step 5: Build a Status Indicator Component
+Let's create a visual component that shows agent status.
+
+Create a new file:
+
+mkdir -p app/components
+touch app/components/AgentStatusIndicator.tsx
+File: `app/components/AgentStatusIndicator.tsx`
+
+"use client";
+
+export function AgentStatusIndicator({
+  status,
+  lastHeartbeat,
+  size = "md",
+}: {
+  status: "online" | "offline" | "error";
+  lastHeartbeat: number;
+  size?: "sm" | "md" | "lg";
+}) {
+  const now = Date.now();
+  const secondsSinceHeartbeat = Math.floor((now - lastHeartbeat) / 1000);
+
+  // Determine visual style
+  const isStale = secondsSinceHeartbeat > 60; // More than 1 minute
+  
+  const styles = {
+    online: isStale
+      ? "bg-yellow-500 shadow-yellow-500/50"
+      : "bg-green-500 shadow-green-500/50 animate-pulse",
+    offline: "bg-gray-500 shadow-gray-500/50",
+    error: "bg-red-500 shadow-red-500/50 animate-pulse",
+  };
+
+  const sizes = {
+    sm: "w-2 h-2",
+    md: "w-3 h-3",
+    lg: "w-4 h-4",
+  };
+
+  const labels = {
+    online: isStale ? "Online (stale)" : "Online",
+    offline: "Offline",
+    error: "Error",
+  };
+
+  return (
+    <div className="flex items-center gap-2">
+      <div
+        className={`rounded-full ${sizes[size]} ${styles[status]} shadow-lg`}
+      />
+      <span className="text-sm text-gray-400">{labels[status]}</span>
+    </div>
+  );
+}
+Understanding the Status Indicator
+Stale detection:
+
+const secondsSinceHeartbeat = Math.floor((now - lastHeartbeat) / 1000);
+const isStale = secondsSinceHeartbeat > 60;
+Even if status is "online", show it as stale if heartbeat is old.
+
+Visual styles:
+
+const styles = {
+  online: isStale
+    ? "bg-yellow-500"  // Yellow for stale
+    : "bg-green-500 animate-pulse",  // Green + pulse for fresh
+  offline: "bg-gray-500",
+  error: "bg-red-500 animate-pulse",
+};
+Green + pulsing = actively sending heartbeats
+
+Yellow = online but no recent heartbeat
+
+Gray = offline
+
+Red + pulsing = error state
+
+Dynamic sizing:
+
+const sizes = {
+  sm: "w-2 h-2",
+  md: "w-3 h-3",
+  lg: "w-4 h-4",
+};
+Makes the component reusable at different sizes.
+
+Step 6: Use the Status Indicator
+Update the home page to use our new component.
+
+File: `app/page.tsx`
+
+Add import:
+
+import { AgentStatusIndicator } from "./components/AgentStatusIndicator";
+Replace the StatusBadge in the agent card with:
+
+<AgentStatusIndicator
+  status={agent.status}
+  lastHeartbeat={agent.lastHeartbeat}
+  size="md"
+/>
+Full updated card section:
+
+<div
+  key={agent._id}
+  className="p-6 bg-gray-800 rounded-lg border border-gray-700"
+>
+  <div className="flex items-center justify-between mb-3">
+    <h3 className="text-xl font-semibold">{agent.name}</h3>
+    <AgentStatusIndicator
+      status={agent.status}
+      lastHeartbeat={agent.lastHeartbeat}
+      size="md"
+    />
+  </div>
+  
+  <div className="text-sm text-gray-400 space-y-1">
+    <p>Last seen: {formatTimestamp(agent.lastHeartbeat)}</p>
+    {agent.metadata && (
+      <>
+        {agent.metadata.version && (
+          <p>Version: {agent.metadata.version}</p>
+        )}
+        {agent.metadata.platform && (
+          <p>Platform: {agent.metadata.platform}</p>
+        )}
+      </>
+    )}
+  </div>
+</div>
+Step 7: Test the Complete System
+Let's see everything working together!
+
+1. View the dashboard:
+
+Open http://localhost:3000
+
+You should see agents with status indicators.
+
+2. Send a heartbeat from terminal:
+
+# Replace with your actual Convex URL
+curl -X POST https://your-url.convex.site/api/heartbeat \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "email-monitor",
+    "status": "online",
+    "metadata": {
+      "version": "1.0.1",
+      "platform": "node"
+    }
+  }'
+3. Watch the dashboard:
+
+The email-monitor agent should:
+
+Show a green pulsing dot
+
+Update "Last seen" to "a few seconds ago"
+
+Show the updated metadata
+
+4. Wait 2 minutes without sending heartbeats:
+
+After 2 minutes, the cron job will run and mark the agent as offline.
+
+Watch the status indicator change from green to gray!
+
+5. Simulate an agent script:
+
+Create a test script to send heartbeats automatically:
+
+touch test-agent.sh
+chmod +x test-agent.sh
+File: `test-agent.sh`
+
+#!/bin/bash
+
+CONVEX_URL="https://your-url.convex.site/api/heartbeat"
+AGENT_NAME="test-agent-$(date +%s)"
+
+echo "Starting agent: $AGENT_NAME"
+
+while true; do
+  echo "Sending heartbeat..."
+  
+  curl -X POST "$CONVEX_URL" \
+    -H "Content-Type: application/json" \
+    -d "{\"name\": \"$AGENT_NAME\", \"status\": \"online\"}" \
+    -s | jq '.'
+  
+  echo "Sleeping 30 seconds..."
+  sleep 30
+done
+Run it:
+
+./test-agent.sh
+You'll see:
+
+Starting agent: test-agent-1234567890
+Sending heartbeat...
+{
+  "agentId": "abc123...",
+  "action": "created"
+}
+Sleeping 30 seconds...
+Sending heartbeat...
+{
+  "agentId": "abc123...",
+  "action": "updated"
+}
+The agent will appear in Mission Control with a live green dot!
+
+Stop the script (Ctrl+C) and watch it go offline after 2 minutes.
+
+Common Errors and Fixes
+Error: "Cannot POST /api/heartbeat"
+Cause: Wrong URL or HTTP routes not configured
+
+Fix:
+
+Make sure convex/http.ts exists
+
+Check that npx convex dev is running
+
+Use .convex.site (not .convex.cloud) in curl commands
+
+Heartbeat works but agent stays offline
+Cause: Cron job might not be running
+
+Fix:
+
+Check convex/crons.ts exists
+
+Look for cron errors in npx convex dev output
+
+Verify the cron job in Convex dashboard (Settings → Crons)
+
+Status indicator doesn't update
+Cause: Missing real-time subscription
+
+Fix:
+
+Make sure you're using useQuery (not a regular API call):
+
+const agents = useQuery(api.agents.getAllAgents);
+Agent keeps showing as "stale"
+Cause: Heartbeats not frequent enough
+
+Fix:
+
+Either send heartbeats more often (<60s) or adjust the stale threshold in AgentStatusIndicator.
+
+What We Built in This Module
+Let's review what you accomplished:
+
+✅ Created a heartbeat mutation that auto-registers agents
+
+✅ Built an HTTP API endpoint for external agents
+
+✅ Implemented timeout detection with cron jobs
+
+✅ Created visual status indicators with pulse animations
+
+✅ Integrated real-time status updates
+
+✅ Logged timeout events as activities
+
+✅ Tested the complete heartbeat cycle
+
+Heartbeat Best Practices
+What we implemented:
+
+Auto-registration – Agents don't need pre-configuration
+
+Reasonable timeouts – 2 minutes balances responsiveness and false positives
+
+Activity logging – Timeouts are recorded for debugging
+
+Visual feedback – Pulsing indicators show live status
+
+Stale detection – Warn before marking offline
+
+For production, consider:
+
+Authentication on the /api/heartbeat endpoint
+
+Rate limiting to prevent abuse
+
+Agent-specific timeout thresholds
+
+Alerting (email/SMS) when critical agents go down
+
+Retry logic in agents for failed heartbeats
+
+Next Steps
+Your monitoring system is alive! In Module 6: Task Management, we'll:
+
+Build a task creation form
+
+Create a Kanban board UI
+
+Implement drag-and-drop task assignment
+
+Add task filtering and sorting
+
+Build task detail views
+
+Time to give your agents some work to do! 📋
+
+Time to complete Module 5: 45-60 minutes
+
+Next module: Module 6 - Task Management
+
+
+Chapter 1
+Task Management & Workflows
+
+Content
+
+Notes
+Module 6: Task Management
+Overview
+In this module, you'll build a complete task management system. Users will be able to create tasks, assign them to agents, update statuses, and view them in a Kanban-style board.
+
+What we'll do:
+
+Create a task creation form
+
+Build a Kanban board UI
+
+Implement task status updates
+
+Add agent assignment functionality
+
+Create task filters and sorting
+
+Build a task detail modal
+
+Time to complete: 60-75 minutes
+
+Understanding Task Management
+Task Workflow
+Our tasks follow this lifecycle:
+
+pending → in-progress → complete
+                     ↘ failed
+States explained:
+
+Pending: Task created, not started
+
+In-progress: Agent is working on it
+
+Complete: Successfully finished
+
+Failed: Encountered an error
+
+Kanban Board Layout
+We'll organize tasks visually:
+
+┌─────────────┬──────────────┬────────────┐
+│  Pending    │ In Progress  │ Complete   │
+├─────────────┼──────────────┼────────────┤
+│ ☐ Task 1    │ ⚙️ Task 3    │ ✓ Task 5   │
+│ ☐ Task 2    │ ⚙️ Task 4    │ ✓ Task 6   │
+└─────────────┴──────────────┴────────────┘
+Each column shows tasks in that status.
+
+Step 1: Create a Task Form Component
+Let's build a form for creating new tasks.
+
+Create a new file:
+
+touch app/components/TaskForm.tsx
+File: `app/components/TaskForm.tsx`
+
+"use client";
+
+import { useState } from "react";
+import { useMutation, useQuery } from "convex/react";
+import { api } from "../../convex/_generated/api";
+import { Id } from "../../convex/_generated/dataModel";
+
+export function TaskForm({ onClose }: { onClose: () => void }) {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [priority, setPriority] = useState<"low" | "medium" | "high">("medium");
+  const [assignedTo, setAssignedTo] = useState<Id<"agents"> | "">("");
+  const [dueInHours, setDueInHours] = useState("");
+
+  const createTask = useMutation(api.tasks.createTask);
+  const agents = useQuery(api.agents.getAllAgents);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!title.trim()) {
+      alert("Task title is required");
+      return;
+    }
+
+    const dueAt = dueInHours
+      ? Date.now() + parseInt(dueInHours) * 60 * 60 * 1000
+      : undefined;
+
+    try {
+      await createTask({
+        title: title.trim(),
+        description: description.trim() || undefined,
+        priority,
+        assignedTo: assignedTo || undefined,
+        dueAt,
+      });
+
+      // Reset form
+      setTitle("");
+      setDescription("");
+      setPriority("medium");
+      setAssignedTo("");
+      setDueInHours("");
+      
+      onClose();
+    } catch (error) {
+      console.error("Failed to create task:", error);
+      alert("Failed to create task. Please try again.");
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div>
+        <label htmlFor="title" className="block text-sm font-medium mb-1">
+          Task Title *
+        </label>
+        <input
+          id="title"
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="e.g., Process customer emails"
+          required
+        />
+      </div>
+
+      <div>
+        <label htmlFor="description" className="block text-sm font-medium mb-1">
+          Description
+        </label>
+        <textarea
+          id="description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Optional details about the task"
+          rows={3}
+        />
+      </div>
+
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <label htmlFor="priority" className="block text-sm font-medium mb-1">
+            Priority
+          </label>
+          <select
+            id="priority"
+            value={priority}
+            onChange={(e) => setPriority(e.target.value as any)}
+            className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+        </div>
+
+        <div>
+          <label htmlFor="assignedTo" className="block text-sm font-medium mb-1">
+            Assign To
+          </label>
+          <select
+            id="assignedTo"
+            value={assignedTo}
+            onChange={(e) => setAssignedTo(e.target.value as any)}
+            className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="">Unassigned</option>
+            {agents?.map((agent) => (
+              <option key={agent._id} value={agent._id}>
+                {agent.name}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label htmlFor="dueInHours" className="block text-sm font-medium mb-1">
+          Due In (hours)
+        </label>
+        <input
+          id="dueInHours"
+          type="number"
+          value={dueInHours}
+          onChange={(e) => setDueInHours(e.target.value)}
+          className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="e.g., 24"
+          min="1"
+        />
+      </div>
+
+      <div className="flex gap-3 pt-4">
+        <button
+          type="submit"
+          className="flex-1 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg font-medium transition-colors"
+        >
+          Create Task
+        </button>
+        <button
+          type="button"
+          onClick={onClose}
+          className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg font-medium transition-colors"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  );
+}
+Understanding the Form
+Form state:
+
+const [title, setTitle] = useState("");
+const [priority, setPriority] = useState<"low" | "medium" | "high">("medium");
+Each field has its own state.
+
+Fetch agents for assignment:
+
+const agents = useQuery(api.agents.getAllAgents);
+Populates the "Assign To" dropdown.
+
+Calculate due date:
+
+const dueAt = dueInHours
+  ? Date.now() + parseInt(dueInHours) * 60 * 60 * 1000
+  : undefined;
+Converts "hours from now" to a timestamp.
+
+Call mutation:
+
+await createTask({
+  title: title.trim(),
+  description: description.trim() || undefined,
+  priority,
+  assignedTo: assignedTo || undefined,
+  dueAt,
+});
+Form validation:
+
+if (!title.trim()) {
+  alert("Task title is required");
+  return;
+}
+Basic client-side validation.
+
+Step 2: Create a Modal Component
+We need a reusable modal for the task form.
+
+touch app/components/Modal.tsx
+File: `app/components/Modal.tsx`
+
+"use client";
+
+import { ReactNode } from "react";
+
+export function Modal({
+  isOpen,
+  onClose,
+  title,
+  children,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  title: string;
+  children: ReactNode;
+}) {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      {/* Backdrop */}
+      <div
+        className="absolute inset-0 bg-black/70"
+        onClick={onClose}
+      />
+      
+      {/* Modal */}
+      <div className="relative bg-gray-900 rounded-xl border border-gray-700 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+        <div className="sticky top-0 bg-gray-900 border-b border-gray-700 px-6 py-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-bold">{title}</h2>
+            <button
+              onClick={onClose}
+              className="text-gray-400 hover:text-white transition-colors"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        
+        <div className="p-6">
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+}
+Understanding the Modal
+Conditional rendering:
+
+if (!isOpen) return null;
+Don't render anything if modal is closed.
+
+Backdrop click to close:
+
+<div className="absolute inset-0 bg-black/70" onClick={onClose} />
+Clicking outside closes the modal.
+
+Scrollable content:
+
+<div className="... max-h-[90vh] overflow-y-auto">
+Long forms can scroll without breaking layout.
+
+Step 3: Create Task Card Component
+Each task needs a card to display its information.
+
+touch app/components/TaskCard.tsx
+File: `app/components/TaskCard.tsx`
+
+"use client";
+
+import { useMutation } from "convex/react";
+import { api } from "../../convex/_generated/api";
+import { Id } from "../../convex/_generated/dataModel";
+
+type Task = {
+  _id: Id<"tasks">;
+  title: string;
+  description?: string;
+  status: "pending" | "in-progress" | "complete" | "failed";
+  priority: "low" | "medium" | "high";
+  assignedTo?: Id<"agents">;
+  agentName?: string | null;
+  createdAt: number;
+  dueAt?: number;
+};
+
+export function TaskCard({ task }: { task: Task }) {
+  const updateStatus = useMutation(api.tasks.updateTaskStatus);
+
+  const priorityColors = {
+    low: "border-blue-500/30 bg-blue-500/5",
+    medium: "border-yellow-500/30 bg-yellow-500/5",
+    high: "border-red-500/30 bg-red-500/5",
+  };
+
+  const priorityBadges = {
+    low: "bg-blue-500/10 text-blue-400 border-blue-500/20",
+    medium: "bg-yellow-500/10 text-yellow-400 border-yellow-500/20",
+    high: "bg-red-500/10 text-red-400 border-red-500/20",
+  };
+
+  const statusActions = {
+    pending: { label: "Start", nextStatus: "in-progress" as const },
+    "in-progress": { label: "Complete", nextStatus: "complete" as const },
+    complete: { label: "Completed", nextStatus: null },
+    failed: { label: "Failed", nextStatus: null },
+  };
+
+  const action = statusActions[task.status];
+
+  const handleStatusChange = async () => {
+    if (!action.nextStatus) return;
+    
+    try {
+      await updateStatus({
+        taskId: task._id,
+        status: action.nextStatus,
+      });
+    } catch (error) {
+      console.error("Failed to update task:", error);
+    }
+  };
+
+  const isOverdue = task.dueAt && task.dueAt < Date.now() && task.status !== "complete";
+
+  return (
+    <div
+      className={`p-4 rounded-lg border ${priorityColors[task.priority]} hover:border-gray-600 transition-colors`}
+    >
+      <div className="flex items-start justify-between mb-2">
+        <h3 className="font-semibold text-white">{task.title}</h3>
+        <span
+          className={`px-2 py-1 rounded text-xs font-semibold border ${priorityBadges[task.priority]}`}
+        >
+          {task.priority}
+        </span>
+      </div>
+
+      {task.description && (
+        <p className="text-sm text-gray-400 mb-3">{task.description}</p>
+      )}
+
+      <div className="space-y-2 text-xs text-gray-500">
+        {task.agentName && (
+          <div className="flex items-center gap-1">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+            <span>{task.agentName}</span>
+          </div>
+        )}
+
+        {task.dueAt && (
+          <div className={`flex items-center gap-1 ${isOverdue ? "text-red-400" : ""}`}>
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>
+              {isOverdue ? "Overdue: " : "Due: "}
+              {formatTimestamp(task.dueAt)}
+            </span>
+          </div>
+        )}
+      </div>
+
+      {action.nextStatus && (
+        <button
+          onClick={handleStatusChange}
+          className="w-full mt-3 px-3 py-2 bg-gray-700 hover:bg-gray-600 rounded text-sm font-medium transition-colors"
+        >
+          {action.label}
+        </button>
+      )}
+    </div>
+  );
+}
+
+function formatTimestamp(timestamp: number): string {
+  const date = new Date(timestamp);
+  const now = new Date();
+  const diffMs = timestamp - now.getTime();
+  const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+  
+  if (diffHours < 0) return `${Math.abs(diffHours)}h ago`;
+  if (diffHours < 24) return `in ${diffHours}h`;
+  return date.toLocaleDateString();
+}
+Understanding the Task Card
+Priority visual styling:
+
+const priorityColors = {
+  low: "border-blue-500/30 bg-blue-500/5",
+  medium: "border-yellow-500/30 bg-yellow-500/5",
+  high: "border-red-500/30 bg-red-500/5",
+};
+Color-coded borders and backgrounds.
+
+Status progression:
+
+const statusActions = {
+  pending: { label: "Start", nextStatus: "in-progress" },
+  "in-progress": { label: "Complete", nextStatus: "complete" },
+  complete: { label: "Completed", nextStatus: null },
+};
+Each status knows what comes next.
+
+Overdue detection:
+
+const isOverdue = task.dueAt && task.dueAt < Date.now() && task.status !== "complete";
+Highlights overdue tasks in red.
+
+Action button:
+
+{action.nextStatus && (
+  <button onClick={handleStatusChange}>
+    {action.label}
+  </button>
+)}
+Only shows button if there's a next status.
+
+Step 4: Create the Kanban Board
+Now let's build the main task board.
+
+touch app/tasks/page.tsx
+File: `app/tasks/page.tsx`
+
+"use client";
+
+import { useState } from "react";
+import { useQuery } from "convex/react";
+import { api } from "../../convex/_generated/api";
+import { TaskCard } from "../components/TaskCard";
+import { TaskForm } from "../components/TaskForm";
+import { Modal } from "../components/Modal";
+
+export default function TasksPage() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const tasks = useQuery(api.tasks.getAllTasks);
+
+  if (tasks === undefined) {
+    return (
+      <main className="min-h-screen bg-gray-900 text-white p-8">
+        <div className="max-w-7xl mx-auto">
+          <p className="text-gray-400">Loading tasks...</p>
+        </div>
+      </main>
+    );
+  }
+
+  const tasksByStatus = {
+    pending: tasks.filter((t) => t.status === "pending"),
+    "in-progress": tasks.filter((t) => t.status === "in-progress"),
+    complete: tasks.filter((t) => t.status === "complete"),
+    failed: tasks.filter((t) => t.status === "failed"),
+  };
+
+  return (
+    <main className="min-h-screen bg-gray-900 text-white p-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <h1 className="text-4xl font-bold mb-2">Task Management</h1>
+            <p className="text-gray-400">
+              {tasks.length} total tasks
+            </p>
+          </div>
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg font-semibold transition-colors"
+          >
+            + New Task
+          </button>
+        </div>
+
+        {/* Kanban Board */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Pending Column */}
+          <div className="bg-gray-800 rounded-lg p-4">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-semibold">Pending</h2>
+              <span className="px-2 py-1 bg-gray-700 rounded text-sm">
+                {tasksByStatus.pending.length}
+              </span>
+            </div>
+            <div className="space-y-3">
+              {tasksByStatus.pending.map((task) => (
+                <TaskCard key={task._id} task={task} />
+              ))}
+              {tasksByStatus.pending.length === 0 && (
+                <p className="text-gray-500 text-sm text-center py-8">
+                  No pending tasks
+                </p>
+              )}
+            </div>
+          </div>
+
+          {/* In Progress Column */}
+          <div className="bg-gray-800 rounded-lg p-4">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-semibold">In Progress</h2>
+              <span className="px-2 py-1 bg-gray-700 rounded text-sm">
+                {tasksByStatus["in-progress"].length}
+              </span>
+            </div>
+            <div className="space-y-3">
+              {tasksByStatus["in-progress"].map((task) => (
+                <TaskCard key={task._id} task={task} />
+              ))}
+              {tasksByStatus["in-progress"].length === 0 && (
+                <p className="text-gray-500 text-sm text-center py-8">
+                  No tasks in progress
+                </p>
+              )}
+            </div>
+          </div>
+
+          {/* Complete Column */}
+          <div className="bg-gray-800 rounded-lg p-4">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-semibold">Complete</h2>
+              <span className="px-2 py-1 bg-gray-700 rounded text-sm">
+                {tasksByStatus.complete.length}
+              </span>
+            </div>
+            <div className="space-y-3">
+              {tasksByStatus.complete.map((task) => (
+                <TaskCard key={task._id} task={task} />
+              ))}
+              {tasksByStatus.complete.length === 0 && (
+                <p className="text-gray-500 text-sm text-center py-8">
+                  No completed tasks
+                </p>
+              )}
+            </div>
+          </div>
+
+          {/* Failed Column */}
+          <div className="bg-gray-800 rounded-lg p-4">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-semibold">Failed</h2>
+              <span className="px-2 py-1 bg-gray-700 rounded text-sm">
+                {tasksByStatus.failed.length}
+              </span>
+            </div>
+            <div className="space-y-3">
+              {tasksByStatus.failed.map((task) => (
+                <TaskCard key={task._id} task={task} />
+              ))}
+              {tasksByStatus.failed.length === 0 && (
+                <p className="text-gray-500 text-sm text-center py-8">
+                  No failed tasks
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Modal */}
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title="Create New Task"
+      >
+        <TaskForm onClose={() => setIsModalOpen(false)} />
+      </Modal>
+    </main>
+  );
+}
+Understanding the Kanban Board
+Group tasks by status:
+
+const tasksByStatus = {
+  pending: tasks.filter((t) => t.status === "pending"),
+  "in-progress": tasks.filter((t) => t.status === "in-progress"),
+  complete: tasks.filter((t) => t.status === "complete"),
+  failed: tasks.filter((t) => t.status === "failed"),
+};
+Responsive grid:
+
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+Mobile: 1 column (stacked)
+
+Tablet: 2 columns
+
+Desktop: 4 columns
+
+Empty state:
+
+{tasksByStatus.pending.length === 0 && (
+  <p className="text-gray-500 text-sm text-center py-8">
+    No pending tasks
+  </p>
+)}
+Shows a message when a column is empty.
+
+Step 5: Add Navigation
+Let's add a simple navigation bar to switch between pages.
+
+touch app/components/Navigation.tsx
+File: `app/components/Navigation.tsx`
+
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+export function Navigation() {
+  const pathname = usePathname();
+
+  const links = [
+    { href: "/", label: "Dashboard" },
+    { href: "/tasks", label: "Tasks" },
+  ];
+
+  return (
+    <nav className="bg-gray-800 border-b border-gray-700">
+      <div className="max-w-7xl mx-auto px-8">
+        <div className="flex items-center h-16 gap-8">
+          <div className="font-bold text-xl">Mission Control</div>
+          <div className="flex gap-4">
+            {links.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`px-3 py-2 rounded-lg transition-colors ${
+                  pathname === link.href
+                    ? "bg-blue-600 text-white"
+                    : "text-gray-400 hover:text-white hover:bg-gray-700"
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
+}
+Update the root layout to include navigation:
+
+File: `app/layout.tsx`
+
+Add import:
+
+import { Navigation } from "./components/Navigation";
+Update the body:
+
+<body className={inter.className}>
+  <ConvexClientProvider>
+    <Navigation />
+    {children}
+  </ConvexClientProvider>
+</body>
+Step 6: Test the Complete Task System
+1. Start your servers:
+
+# Terminal 1
+npm run dev
+
+# Terminal 2
+npx convex dev
+2. Navigate to tasks:
+
+Go to http://localhost:3000/tasks
+
+3. Create a new task:
+
+Click "+ New Task"
+
+Fill in:
+
+  - Title: "Test the task system"
+
+  - Description: "Verify all features work"
+
+  - Priority: High
+
+  - Assign To: (pick an agent)
+
+  - Due In: 2 hours
+
+Click "Create Task"
+
+4. Watch it appear:
+
+The task should appear in the "Pending" column immediately!
+
+5. Progress the task:
+
+Click "Start" on the task
+
+Watch it move to "In Progress"
+
+Click "Complete"
+
+Watch it move to "Complete"
+
+6. Create multiple tasks:
+
+Create 5-10 tasks with different priorities and assignments.
+
+Watch them organize into columns!
+
+Common Errors and Fixes
+Error: Tasks not appearing
+Cause: Query not returning data
+
+Fix:
+
+Check that npx convex dev is running
+
+Verify tasks exist in Convex dashboard (Data → tasks)
+
+Check browser console for errors
+
+Modal doesn't close after creating task
+Cause: onClose not called
+
+Fix:
+
+Ensure TaskForm calls onClose() after successful submission:
+
+await createTask({...});
+onClose(); // Add this
+Task card doesn't update status
+Cause: Mutation failed or not updating
+
+Fix:
+
+Check console for errors
+
+Verify updateTaskStatus exists in convex/tasks.ts
+
+Ensure mutation is being called correctly
+
+Navigation links broken
+Cause: Incorrect paths
+
+Fix:
+
+Make sure file structure matches:
+
+app/page.tsx → "/"
+
+app/tasks/page.tsx → "/tasks"
+
+What We Built in This Module
+Let's review what you accomplished:
+
+✅ Created a task creation form with validation
+
+✅ Built a reusable modal component
+
+✅ Designed task cards with priority styling
+
+✅ Implemented a Kanban board layout
+
+✅ Added status progression (pending → in-progress → complete)
+
+✅ Implemented task assignment to agents
+
+✅ Added overdue task detection
+
+✅ Created navigation between pages
+
+✅ Made everything real-time with Convex
+
+Task Management Best Practices
+What we implemented:
+
+Clear workflows – One-click status progression
+
+Visual hierarchy – Priority colors, overdue warnings
+
+Agent assignment – Tasks linked to agents
+
+Deadline tracking – Due dates with countdown
+
+Real-time updates – Changes appear instantly
+
+Empty states – Helpful messages when columns are empty
+
+For production, consider:
+
+Task comments/notes
+
+Task history/audit log
+
+Bulk operations (complete multiple tasks)
+
+Task templates for common workflows
+
+Email notifications for overdue tasks
+
+Search and advanced filtering
+
+Next Steps
+Your task management system is complete! In Module 7: Activity Feed, we'll:
+
+Build a real-time activity stream
+
+Add filtering by agent and type
+
+Create activity icons and formatting
+
+Implement auto-scrolling
+
+Add activity search
+
+Time to see what your agents are really doing! 📡
+
+Time to complete Module 6: 60-75 minutes
+
+Next module: Module 7 - Activity Feed
+
+
+Chapter 1
+Activity Feed & Logging
+
+Content
+
+Notes
+Module 7: Activity Feed
+Overview
+In this module, you'll build a real-time activity feed that shows everything your agents are doing. Think Twitter feed, but for agent actions.
+
+What we'll do:
+
+Create an activity feed component
+
+Add filtering by agent and type
+
+Implement activity icons and formatting
+
+Build auto-refresh functionality
+
+Add search capabilities
+
+Create activity stats
+
+Time to complete: 45-60 minutes
+
+Understanding Activity Feeds
+What Gets Logged?
+Activities capture agent actions:
+
+Info: "Checked 15 emails", "Connected to API"
+
+Success: "Processed 50 records", "Backup completed"
+
+Warning: "Rate limit approaching", "Disk space low"
+
+Error: "Connection failed", "Authentication error"
+
+Each activity has:
+
+Agent that performed it
+
+Type (info/success/warning/error)
+
+Message describing what happened
+
+Timestamp when it occurred
+
+Metadata (optional extra details)
+
+Real-Time Requirements
+The feed should:
+
+✅ Update automatically when new activities occur
+
+✅ Show most recent activities first
+
+✅ Be filterable by agent or type
+
+✅ Load quickly (limit to recent activities)
+
+✅ Be easy to scan visually
+
+Step 1: Create Activity Feed Component
+Let's build the main activity feed component.
+
+touch app/components/ActivityFeed.tsx
+File: `app/components/ActivityFeed.tsx`
+
+"use client";
+
+import { useState } from "react";
+import { useQuery } from "convex/react";
+import { api } from "../../convex/_generated/api";
+import { Id } from "../../convex/_generated/dataModel";
+
+export function ActivityFeed() {
+  const [filterType, setFilterType] = useState<string>("all");
+  const [filterAgent, setFilterAgent] = useState<Id<"agents"> | "all">("all");
+  const [limit, setLimit] = useState(50);
+
+  const activities = useQuery(api.activities.getAllActivities, { limit });
+  const agents = useQuery(api.agents.getAllAgents);
+
+  if (activities === undefined || agents === undefined) {
+    return (
+      <div className="p-8 text-gray-400">
+        Loading activities...
+      </div>
+    );
+  }
+
+  // Apply filters
+  let filteredActivities = activities;
+  
+  if (filterType !== "all") {
+    filteredActivities = filteredActivities.filter(
+      (a) => a.type === filterType
+    );
+  }
+  
+  if (filterAgent !== "all") {
+    filteredActivities = filteredActivities.filter(
+      (a) => a.agentId === filterAgent
+    );
+  }
+
+  return (
+    <div className="space-y-4">
+      {/* Filters */}
+      <div className="flex flex-wrap gap-4 p-4 bg-gray-800 rounded-lg border border-gray-700">
+        <div className="flex-1 min-w-[200px]">
+          <label className="block text-sm font-medium mb-2">Filter by Type</label>
+          <select
+            value={filterType}
+            onChange={(e) => setFilterType(e.target.value)}
+            className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="all">All Types</option>
+            <option value="info">Info</option>
+            <option value="success">Success</option>
+            <option value="warning">Warning</option>
+            <option value="error">Error</option>
+          </select>
+        </div>
+
+        <div className="flex-1 min-w-[200px]">
+          <label className="block text-sm font-medium mb-2">Filter by Agent</label>
+          <select
+            value={filterAgent}
+            onChange={(e) => setFilterAgent(e.target.value as any)}
+            className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="all">All Agents</option>
+            {agents.map((agent) => (
+              <option key={agent._id} value={agent._id}>
+                {agent.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="flex-1 min-w-[150px]">
+          <label className="block text-sm font-medium mb-2">Show</label>
+          <select
+            value={limit}
+            onChange={(e) => setLimit(parseInt(e.target.value))}
+            className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value={25}>Last 25</option>
+            <option value={50}>Last 50</option>
+            <option value={100}>Last 100</option>
+            <option value={200}>Last 200</option>
+          </select>
+        </div>
+      </div>
+
+      {/* Stats */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <StatCard
+          label="Total"
+          value={filteredActivities.length}
+          color="gray"
+        />
+        <StatCard
+          label="Errors"
+          value={filteredActivities.filter((a) => a.type === "error").length}
+          color="red"
+        />
+        <StatCard
+          label="Warnings"
+          value={filteredActivities.filter((a) => a.type === "warning").length}
+          color="yellow"
+        />
+        <StatCard
+          label="Success"
+          value={filteredActivities.filter((a) => a.type === "success").length}
+          color="green"
+        />
+      </div>
+
+      {/* Activity List */}
+      <div className="space-y-2">
+        {filteredActivities.length === 0 ? (
+          <div className="p-8 text-center text-gray-500">
+            No activities found
+          </div>
+        ) : (
+          filteredActivities.map((activity) => (
+            <ActivityItem key={activity._id} activity={activity} />
+          ))
+        )}
+      </div>
+    </div>
+  );
+}
+
+function StatCard({
+  label,
+  value,
+  color,
+}: {
+  label: string;
+  value: number;
+  color: "gray" | "red" | "yellow" | "green";
+}) {
+  const colors = {
+    gray: "border-gray-700 bg-gray-800",
+    red: "border-red-500/30 bg-red-500/5",
+    yellow: "border-yellow-500/30 bg-yellow-500/5",
+    green: "border-green-500/30 bg-green-500/5",
+  };
+
+  return (
+    <div className={`p-4 rounded-lg border ${colors[color]}`}>
+      <div className="text-2xl font-bold">{value}</div>
+      <div className="text-sm text-gray-400">{label}</div>
+    </div>
+  );
+}
+
+function ActivityItem({
+  activity,
+}: {
+  activity: {
+    _id: Id<"activities">;
+    type: string;
+    message: string;
+    agentName: string;
+    timestamp: number;
+    metadata?: {
+      duration?: number;
+      details?: string;
+    };
+  };
+}) {
+  const typeConfig = {
+    info: {
+      icon: "ℹ️",
+      color: "border-blue-500/30 bg-blue-500/5",
+      textColor: "text-blue-400",
+    },
+    success: {
+      icon: "✓",
+      color: "border-green-500/30 bg-green-500/5",
+      textColor: "text-green-400",
+    },
+    warning: {
+      icon: "⚠️",
+      color: "border-yellow-500/30 bg-yellow-500/5",
+      textColor: "text-yellow-400",
+    },
+    error: {
+      icon: "✗",
+      color: "border-red-500/30 bg-red-500/5",
+      textColor: "text-red-400",
+    },
+  };
+
+  const config = typeConfig[activity.type as keyof typeof typeConfig] || typeConfig.info;
+
+  return (
+    <div className={`p-4 rounded-lg border ${config.color}`}>
+      <div className="flex items-start gap-3">
+        <div className={`text-2xl ${config.textColor}`}>
+          {config.icon}
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 mb-1">
+            <span className="font-semibold text-white">
+              {activity.agentName}
+            </span>
+            <span className="text-gray-500">•</span>
+            <span className="text-sm text-gray-500">
+              {formatTimestamp(activity.timestamp)}
+            </span>
+          </div>
+          <p className="text-gray-300">{activity.message}</p>
+          {activity.metadata?.duration && (
+            <p className="text-sm text-gray-500 mt-1">
+              Duration: {activity.metadata.duration}ms
+            </p>
+          )}
+          {activity.metadata?.details && (
+            <p className="text-sm text-gray-500 mt-1 font-mono">
+              {activity.metadata.details}
+            </p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function formatTimestamp(timestamp: number): string {
+  const seconds = Math.floor((Date.now() - timestamp) / 1000);
+  
+  if (seconds < 10) return "just now";
+  if (seconds < 60) return `${seconds}s ago`;
+  if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
+  if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
+  return `${Math.floor(seconds / 86400)}d ago`;
+}
+Understanding the Activity Feed
+Client-side filtering:
+
+let filteredActivities = activities;
+
+if (filterType !== "all") {
+  filteredActivities = filteredActivities.filter((a) => a.type === filterType);
+}
+Filters happen in the browser for instant feedback.
+
+Dynamic icon and color:
+
+const typeConfig = {
+  info: { icon: "ℹ️", color: "border-blue-500/30 bg-blue-500/5" },
+  success: { icon: "✓", color: "border-green-500/30 bg-green-500/5" },
+  warning: { icon: "⚠️", color: "border-yellow-500/30 bg-yellow-500/5" },
+  error: { icon: "✗", color: "border-red-500/30 bg-red-500/5" },
+};
+Each activity type has its own visual style.
+
+Relative timestamps:
+
+if (seconds < 10) return "just now";
+if (seconds < 60) return `${seconds}s ago`;
+Human-readable time display.
+
+Optional metadata:
+
+{activity.metadata?.duration && (
+  <p>Duration: {activity.metadata.duration}ms</p>
+)}
+Show extra details when available.
+
+Step 2: Create an Activities Page
+Let's create a dedicated page for the activity feed.
+
+touch app/activities/page.tsx
+File: `app/activities/page.tsx`
+
+"use client";
+
+import { ActivityFeed } from "../components/ActivityFeed";
+
+export default function ActivitiesPage() {
+  return (
+    <main className="min-h-screen bg-gray-900 text-white p-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="mb-8">
+          <h1 className="text-4xl font-bold mb-2">Activity Feed</h1>
+          <p className="text-gray-400">
+            Real-time stream of agent actions
+          </p>
+        </div>
+
+        <ActivityFeed />
+      </div>
+    </main>
+  );
+}
+Update the navigation to include activities:
+
+File: `app/components/Navigation.tsx`
+
+Update the links array:
+
+const links = [
+  { href: "/", label: "Dashboard" },
+  { href: "/tasks", label: "Tasks" },
+  { href: "/activities", label: "Activities" },
+];
+Step 3: Add Activity Logging to Heartbeat
+Let's automatically log heartbeat activities.
+
+File: `convex/agents.ts`
+
+Update the heartbeat mutation:
+
+export const heartbeat = mutation({
+  args: {
+    name: v.string(),
+    status: v.optional(
+      v.union(v.literal("online"), v.literal("offline"), v.literal("error"))
+    ),
+    metadata: v.optional(
+      v.object({
+        version: v.optional(v.string()),
+        platform: v.optional(v.string()),
+        tags: v.optional(v.array(v.string())),
+      })
+    ),
+  },
+  handler: async (ctx, args) => {
+    const existingAgent = await ctx.db
+      .query("agents")
+      .withIndex("by_name", (q) => q.eq("name", args.name))
+      .unique();
+
+    const now = Date.now();
+    const newStatus = args.status ?? "online";
+
+    if (existingAgent) {
+      // Check if status changed
+      const statusChanged = existingAgent.status !== newStatus;
+
+      // Update existing agent
+      await ctx.db.patch(existingAgent._id, {
+        status: newStatus,
+        lastHeartbeat: now,
+        metadata: args.metadata ?? existingAgent.metadata,
+      });
+
+      // Log activity if status changed
+      if (statusChanged) {
+        await ctx.db.insert("activities", {
+          agentId: existingAgent._id,
+          type: newStatus === "online" ? "success" : newStatus === "error" ? "error" : "info",
+          message: `Status changed to ${newStatus}`,
+          timestamp: now,
+        });
+      }
+
+      return {
+        agentId: existingAgent._id,
+        action: "updated",
+      };
+    } else {
+      // Create new agent
+      const agentId = await ctx.db.insert("agents", {
+        name: args.name,
+        status: newStatus,
+        lastHeartbeat: now,
+        metadata: args.metadata,
+      });
+
+      // Log creation activity
+      await ctx.db.insert("activities", {
+        agentId,
+        type: "info",
+        message: "Agent registered",
+        timestamp: now,
+      });
+
+      return {
+        agentId,
+        action: "created",
+      };
+    }
+  },
+});
+Now heartbeats automatically create activity entries!
+
+Step 4: Add Activity Logging to Task Actions
+Let's log when tasks change status.
+
+File: `convex/tasks.ts`
+
+Update the updateTaskStatus mutation:
+
+export const updateTaskStatus = mutation({
+  args: {
+    taskId: v.id("tasks"),
+    status: v.union(
+      v.literal("pending"),
+      v.literal("in-progress"),
+      v.literal("complete"),
+      v.literal("failed")
+    ),
+  },
+  handler: async (ctx, args) => {
+    const task = await ctx.db.get(args.taskId);
+    if (!task) throw new Error("Task not found");
+
+    const now = Date.now();
+    const updates: any = {
+      status: args.status,
+      updatedAt: now,
+    };
+
+    if (args.status === "complete" || args.status === "failed") {
+      updates.completedAt = now;
+    }
+
+    await ctx.db.patch(args.taskId, updates);
+
+    // Log activity if task is assigned to an agent
+    if (task.assignedTo) {
+      const activityType = 
+        args.status === "complete" ? "success" :
+        args.status === "failed" ? "error" :
+        "info";
+
+      await ctx.db.insert("activities", {
+        agentId: task.assignedTo,
+        type: activityType,
+        message: `Task "${task.title}" marked as ${args.status}`,
+        timestamp: now,
+      });
+    }
+  },
+});
+Step 5: Test the Activity Feed
+1. Navigate to activities:
+
+Go to http://localhost:3000/activities
+
+You should see existing activities from your seed data.
+
+2. Send a heartbeat:
+
+curl -X POST https://your-url.convex.site/api/heartbeat \
+  -H "Content-Type: application/json" \
+  -d '{"name": "email-monitor", "status": "online"}'
+Watch a new activity appear instantly!
+
+3. Update a task status:
+
+Go to http://localhost:3000/tasks
+
+Click "Start" on a task
+
+Switch to the Activities tab
+
+See the activity logged!
+
+4. Test filters:
+
+Filter by Type: Select "Error" to see only errors
+
+Filter by Agent: Select "email-monitor" to see only its activities
+
+Change "Show" limit to see more/fewer activities
+
+5. Watch real-time updates:
+
+Open Activities page in one browser tab
+
+Send heartbeats or update tasks in another
+
+Watch activities appear without refreshing!
+
+Step 6: Add Activity Feed to Dashboard
+Let's show recent activities on the main dashboard.
+
+File: `app/page.tsx`
+
+Update to include a small activity feed:
+
+"use client";
+
+import { useQuery } from "convex/react";
+import { api } from "../convex/_generated/api";
+import { AgentStatusIndicator } from "./components/AgentStatusIndicator";
+
+export default function Home() {
+  const agents = useQuery(api.agents.getAllAgents);
+  const recentActivities = useQuery(api.activities.getAllActivities, { limit: 10 });
+
+  return (
+    <main className="min-h-screen bg-gray-900 text-white p-8">
+      <div className="max-w-7xl mx-auto space-y-8">
+        <div>
+          <h1 className="text-4xl font-bold mb-2">Mission Control</h1>
+          <p className="text-gray-400 text-lg">
+            AI Agent Monitoring Dashboard
+          </p>
+        </div>
+
+        {/* Stats Summary */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <StatCard
+            label="Total Agents"
+            value={agents?.length ?? 0}
+          />
+          <StatCard
+            label="Online"
+            value={agents?.filter((a) => a.status === "online").length ?? 0}
+            color="green"
+          />
+          <StatCard
+            label="Offline"
+            value={agents?.filter((a) => a.status === "offline").length ?? 0}
+            color="gray"
+          />
+          <StatCard
+            label="Errors"
+            value={agents?.filter((a) => a.status === "error").length ?? 0}
+            color="red"
+          />
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Agents Section */}
+          <div>
+            <h2 className="text-2xl font-semibold mb-4">Active Agents</h2>
+            
+            {agents === undefined ? (
+              <p className="text-gray-400">Loading agents...</p>
+            ) : agents.length === 0 ? (
+              <p className="text-gray-400">No agents found.</p>
+            ) : (
+              <div className="space-y-3">
+                {agents.map((agent) => (
+                  <div
+                    key={agent._id}
+                    className="p-4 bg-gray-800 rounded-lg border border-gray-700"
+                  >
+                    <div className="flex items-center justify-between mb-2">
+                      <h3 className="text-lg font-semibold">{agent.name}</h3>
+                      <AgentStatusIndicator
+                        status={agent.status}
+                        lastHeartbeat={agent.lastHeartbeat}
+                        size="sm"
+                      />
+                    </div>
+                    <p className="text-sm text-gray-400">
+                      Last seen: {formatTimestamp(agent.lastHeartbeat)}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Recent Activities Section */}
+          <div>
+            <h2 className="text-2xl font-semibold mb-4">Recent Activity</h2>
+            
+            {recentActivities === undefined ? (
+              <p className="text-gray-400">Loading activities...</p>
+            ) : recentActivities.length === 0 ? (
+              <p className="text-gray-400">No recent activities.</p>
+            ) : (
+              <div className="space-y-2">
+                {recentActivities.map((activity) => (
+                  <div
+                    key={activity._id}
+                    className="p-3 bg-gray-800 rounded-lg border border-gray-700"
+                  >
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="font-semibold text-sm">
+                        {activity.agentName}
+                      </span>
+                      <span className="text-xs text-gray-500">
+                        {formatTimestamp(activity.timestamp)}
+                      </span>
+                    </div>
+                    <p className="text-sm text-gray-300">{activity.message}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </main>
+  );
+}
+
+function StatCard({
+  label,
+  value,
+  color = "blue",
+}: {
+  label: string;
+  value: number;
+  color?: "blue" | "green" | "gray" | "red";
+}) {
+  const colors = {
+    blue: "border-blue-500/30 bg-blue-500/5",
+    green: "border-green-500/30 bg-green-500/5",
+    gray: "border-gray-500/30 bg-gray-500/5",
+    red: "border-red-500/30 bg-red-500/5",
+  };
+
+  return (
+    <div className={`p-6 rounded-lg border ${colors[color]}`}>
+      <div className="text-3xl font-bold mb-1">{value}</div>
+      <div className="text-sm text-gray-400">{label}</div>
+    </div>
+  );
+}
+
+function formatTimestamp(timestamp: number): string {
+  const seconds = Math.floor((Date.now() - timestamp) / 1000);
+  
+  if (seconds < 60) return `${seconds}s ago`;
+  if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
+  if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
+  return `${Math.floor(seconds / 86400)}d ago`;
+}
+Now your dashboard shows both agents and recent activities!
+
+What We Built in This Module
+Let's review what you accomplished:
+
+✅ Created a comprehensive activity feed component
+
+✅ Added filtering by type and agent
+
+✅ Implemented activity stats (errors, warnings, successes)
+
+✅ Created visual indicators with icons and colors
+
+✅ Added automatic activity logging to heartbeats
+
+✅ Integrated activity logging into task updates
+
+✅ Built a dedicated activities page
+
+✅ Added recent activities to the dashboard
+
+✅ Everything updates in real-time
+
+Activity Feed Best Practices
+What we implemented:
+
+Visual hierarchy – Icons and colors for quick scanning
+
+Flexible filtering – Find exactly what you need
+
+Relative timestamps – Easy to understand timing
+
+Optional metadata – Show extra details when available
+
+Real-time updates – No refresh needed
+
+Performance – Limit query results to avoid slowdown
+
+Next Steps
+Your activity monitoring is complete! In Module 8: Dashboard UI, we'll:
+
+Polish the dashboard layout
+
+Add responsive design improvements
+
+Create more visualizations
+
+Add system health indicators
+
+Implement dark mode toggle
+
+Make everything look production-ready
+
+Time to make it beautiful! 🎨
+
+Time to complete Module 7: 45-60 minutes
+
+Next module: Module 8 - Dashboard UI
+
+
+Chapter 1
+Dashboard UI Components
+
+Content
+
+Notes
+Module 8: Dashboard UI
+Overview
+In this module, we'll polish Mission Control's interface into a production-ready dashboard. You'll learn professional UI patterns, responsive design, and visual hierarchy.
+
+What we'll do:
+
+Enhance the dashboard layout
+
+Add system health indicators
+
+Create stat cards with trends
+
+Build agent detail modals
+
+Improve responsive design
+
+Add loading skeletons
+
+Polish typography and spacing
+
+Time to complete: 50-65 minutes
+
+Understanding Dashboard Design
+Good Dashboard Principles
+1. Information Hierarchy
+
+Most important info at the top, details below
+
+2. Scannable Layout
+
+Users should grasp system status in 3 seconds
+
+3. Visual Consistency
+
+Colors, spacing, and typography follow patterns
+
+4. Responsive Design
+
+Works on desktop, tablet, and mobile
+
+5. Progressive Disclosure
+
+Show overview first, details on demand
+
+Step 1: Create Enhanced Stat Cards
+Let's build more informative stat cards with trends and icons.
+
+touch app/components/StatsCard.tsx
+File: `app/components/StatsCard.tsx`
+
+"use client";
+
+import { ReactNode } from "react";
+
+export function StatsCard({
+  title,
+  value,
+  subtitle,
+  icon,
+  trend,
+  color = "blue",
+}: {
+  title: string;
+  value: number | string;
+  subtitle?: string;
+  icon?: ReactNode;
+  trend?: { value: number; label: string };
+  color?: "blue" | "green" | "yellow" | "red" | "purple";
+}) {
+  const colors = {
+    blue: {
+      bg: "bg-blue-500/10",
+      border: "border-blue-500/20",
+      text: "text-blue-400",
+      icon: "text-blue-500",
+    },
+    green: {
+      bg: "bg-green-500/10",
+      border: "border-green-500/20",
+      text: "text-green-400",
+      icon: "text-green-500",
+    },
+    yellow: {
+      bg: "bg-yellow-500/10",
+      border: "border-yellow-500/20",
+      text: "text-yellow-400",
+      icon: "text-yellow-500",
+    },
+    red: {
+      bg: "bg-red-500/10",
+      border: "border-red-500/20",
+      text: "text-red-400",
+      icon: "text-red-500",
+    },
+    purple: {
+      bg: "bg-purple-500/10",
+      border: "border-purple-500/20",
+      text: "text-purple-400",
+      icon: "text-purple-500",
+    },
+  };
+
+  const colorScheme = colors[color];
+
+  return (
+    <div
+      className={`relative overflow-hidden rounded-xl border ${colorScheme.border} ${colorScheme.bg} p-6 transition-all hover:shadow-lg hover:scale-[1.02]`}
+    >
+      <div className="flex items-start justify-between mb-4">
+        <div>
+          <p className="text-sm text-gray-400 font-medium">{title}</p>
+          <p className={`text-3xl font-bold mt-1 ${colorScheme.text}`}>
+            {value}
+          </p>
+        </div>
+        {icon && (
+          <div className={`p-3 rounded-lg ${colorScheme.bg} ${colorScheme.icon}`}>
+            {icon}
+          </div>
+        )}
+      </div>
+
+      {(subtitle || trend) && (
+        <div className="flex items-center justify-between text-sm">
+          {subtitle && <p className="text-gray-500">{subtitle}</p>}
+          {trend && (
+            <div
+              className={`flex items-center gap-1 ${
+                trend.value >= 0 ? "text-green-400" : "text-red-400"
+              }`}
+            >
+              <span>{trend.value >= 0 ? "↑" : "↓"}</span>
+              <span>{Math.abs(trend.value)}%</span>
+              <span className="text-gray-500">{trend.label}</span>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+Understanding the Stats Card
+Hover effects:
+
+hover:shadow-lg hover:scale-[1.02]
+Subtle scale and shadow on hover adds interactivity.
+
+Flexible layout:
+
+{icon && (
+  <div className={`p-3 rounded-lg ${colorScheme.icon}`}>
+    {icon}
+  </div>
+)}
+Icon is optional but adds visual interest.
+
+Trend indicators:
+
+<span>{trend.value >= 0 ? "↑" : "↓"}</span>
+Shows whether metrics are improving or declining.
+
+Step 2: Create System Health Component
+Let's build an overall system health indicator.
+
+touch app/components/SystemHealth.tsx
+File: `app/components/SystemHealth.tsx`
+
+"use client";
+
+export function SystemHealth({
+  agentsOnline,
+  agentsTotal,
+  errorCount,
+}: {
+  agentsOnline: number;
+  agentsTotal: number;
+  errorCount: number;
+}) {
+  const healthPercentage = agentsTotal > 0 
+    ? Math.round((agentsOnline / agentsTotal) * 100) 
+    : 0;
+
+  let healthStatus: "healthy" | "degraded" | "critical";
+  let healthColor: string;
+  let healthLabel: string;
+
+  if (errorCount > 0) {
+    healthStatus = "critical";
+    healthColor = "text-red-400";
+    healthLabel = "Critical";
+  } else if (healthPercentage < 50) {
+    healthStatus = "critical";
+    healthColor = "text-red-400";
+    healthLabel = "Critical";
+  } else if (healthPercentage < 80) {
+    healthStatus = "degraded";
+    healthColor = "text-yellow-400";
+    healthLabel = "Degraded";
+  } else {
+    healthStatus = "healthy";
+    healthColor = "text-green-400";
+    healthLabel = "Healthy";
+  }
+
+  return (
+    <div className="bg-gray-800 rounded-xl border border-gray-700 p-6">
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-xl font-semibold">System Health</h2>
+        <div className="flex items-center gap-2">
+          <div
+            className={`w-3 h-3 rounded-full ${
+              healthStatus === "healthy"
+                ? "bg-green-500 animate-pulse"
+                : healthStatus === "degraded"
+                ? "bg-yellow-500"
+                : "bg-red-500 animate-pulse"
+            }`}
+          />
+          <span className={`font-semibold ${healthColor}`}>
+            {healthLabel}
+          </span>
+        </div>
+      </div>
+
+      {/* Health Bar */}
+      <div className="mb-4">
+        <div className="flex items-center justify-between text-sm text-gray-400 mb-2">
+          <span>Agents Online</span>
+          <span>
+            {agentsOnline} / {agentsTotal} ({healthPercentage}%)
+          </span>
+        </div>
+        <div className="w-full bg-gray-700 rounded-full h-3 overflow-hidden">
+          <div
+            className={`h-full transition-all duration-500 ${
+              healthStatus === "healthy"
+                ? "bg-green-500"
+                : healthStatus === "degraded"
+                ? "bg-yellow-500"
+                : "bg-red-500"
+            }`}
+            style={{ width: `${healthPercentage}%` }}
+          />
+        </div>
+      </div>
+
+      {/* Metrics */}
+      <div className="grid grid-cols-3 gap-4 text-center">
+        <div>
+          <div className="text-2xl font-bold text-green-400">
+            {agentsOnline}
+          </div>
+          <div className="text-xs text-gray-500">Online</div>
+        </div>
+        <div>
+          <div className="text-2xl font-bold text-gray-400">
+            {agentsTotal - agentsOnline}
+          </div>
+          <div className="text-xs text-gray-500">Offline</div>
+        </div>
+        <div>
+          <div className="text-2xl font-bold text-red-400">{errorCount}</div>
+          <div className="text-xs text-gray-500">Errors</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+Understanding System Health
+Health calculation:
+
+const healthPercentage = agentsTotal > 0 
+  ? Math.round((agentsOnline / agentsTotal) * 100) 
+  : 0;
+Percentage of agents that are online.
+
+Status logic:
+
+if (errorCount > 0) {
+  healthStatus = "critical";
+} else if (healthPercentage < 50) {
+  healthStatus = "critical";
+} else if (healthPercentage < 80) {
+  healthStatus = "degraded";
+} else {
+  healthStatus = "healthy";
+}
+Determines overall system health.
+
+Visual progress bar:
+
+<div
+  className="h-full transition-all duration-500 bg-green-500"
+  style={{ width: `${healthPercentage}%` }}
+/>
+Animated bar shows health percentage.
+
+Step 3: Create Agent Detail Modal
+Let's build a modal that shows detailed agent information.
+
+touch app/components/AgentDetailModal.tsx
+File: `app/components/AgentDetailModal.tsx`
+
+"use client";
+
+import { useQuery } from "convex/react";
+import { api } from "../../convex/_generated/api";
+import { Id } from "../../convex/_generated/dataModel";
+import { Modal } from "./Modal";
+import { AgentStatusIndicator } from "./AgentStatusIndicator";
+
+export function AgentDetailModal({
+  isOpen,
+  onClose,
+  agentId,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  agentId: Id<"agents"> | null;
+}) {
+  const agent = agentId ? useQuery(api.agents.getAllAgents) : undefined;
+  const activities = agentId
+    ? useQuery(api.activities.getAgentActivities, { agentId, limit: 20 })
+    : undefined;
+  const tasks = agentId
+    ? useQuery(api.tasks.getAgentTasks, { agentId })
+    : undefined;
+
+  const selectedAgent = agent?.find((a) => a._id === agentId);
+
+  if (!isOpen || !agentId || !selectedAgent) return null;
+
+  return (
+    <Modal isOpen={isOpen} onClose={onClose} title={selectedAgent.name}>
+      <div className="space-y-6">
+        {/* Status Section */}
+        <div className="flex items-center justify-between p-4 bg-gray-800 rounded-lg">
+          <div>
+            <p className="text-sm text-gray-400 mb-1">Current Status</p>
+            <AgentStatusIndicator
+              status={selectedAgent.status}
+              lastHeartbeat={selectedAgent.lastHeartbeat}
+              size="lg"
+            />
+          </div>
+          <div className="text-right">
+            <p className="text-sm text-gray-400 mb-1">Last Heartbeat</p>
+            <p className="text-white font-semibold">
+              {formatTimestamp(selectedAgent.lastHeartbeat)}
+            </p>
+          </div>
+        </div>
+
+        {/* Metadata */}
+        {selectedAgent.metadata && (
+          <div className="p-4 bg-gray-800 rounded-lg">
+            <h3 className="font-semibold mb-3">Metadata</h3>
+            <div className="space-y-2 text-sm">
+              {selectedAgent.metadata.version && (
+                <div className="flex justify-between">
+                  <span className="text-gray-400">Version:</span>
+                  <span className="font-mono">{selectedAgent.metadata.version}</span>
+                </div>
+              )}
+              {selectedAgent.metadata.platform && (
+                <div className="flex justify-between">
+                  <span className="text-gray-400">Platform:</span>
+                  <span className="font-mono">{selectedAgent.metadata.platform}</span>
+                </div>
+              )}
+              {selectedAgent.metadata.tags && (
+                <div className="flex justify-between">
+                  <span className="text-gray-400">Tags:</span>
+                  <div className="flex gap-2">
+                    {selectedAgent.metadata.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-2 py-1 bg-blue-500/10 text-blue-400 rounded text-xs"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Tasks */}
+        <div>
+          <h3 className="font-semibold mb-3">Assigned Tasks</h3>
+          {tasks === undefined ? (
+            <p className="text-gray-500">Loading tasks...</p>
+          ) : tasks.length === 0 ? (
+            <p className="text-gray-500">No assigned tasks</p>
+          ) : (
+            <div className="space-y-2">
+              {tasks.map((task) => (
+                <div
+                  key={task._id}
+                  className="p-3 bg-gray-800 rounded-lg border border-gray-700"
+                >
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="font-medium">{task.title}</span>
+                    <span
+                      className={`text-xs px-2 py-1 rounded ${
+                        task.status === "complete"
+                          ? "bg-green-500/10 text-green-400"
+                          : task.status === "in-progress"
+                          ? "bg-blue-500/10 text-blue-400"
+                          : "bg-gray-700 text-gray-400"
+                      }`}
+                    >
+                      {task.status}
+                    </span>
+                  </div>
+                  {task.description && (
+                    <p className="text-sm text-gray-400">{task.description}</p>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Recent Activities */}
+        <div>
+          <h3 className="font-semibold mb-3">Recent Activities</h3>
+          {activities === undefined ? (
+            <p className="text-gray-500">Loading activities...</p>
+          ) : activities.length === 0 ? (
+            <p className="text-gray-500">No recent activities</p>
+          ) : (
+            <div className="space-y-2 max-h-64 overflow-y-auto">
+              {activities.map((activity) => (
+                <div
+                  key={activity._id}
+                  className="p-3 bg-gray-800 rounded-lg border border-gray-700"
+                >
+                  <div className="flex items-center gap-2 mb-1">
+                    <span
+                      className={`text-xs px-2 py-1 rounded ${
+                        activity.type === "error"
+                          ? "bg-red-500/10 text-red-400"
+                          : activity.type === "warning"
+                          ? "bg-yellow-500/10 text-yellow-400"
+                          : activity.type === "success"
+                          ? "bg-green-500/10 text-green-400"
+                          : "bg-blue-500/10 text-blue-400"
+                      }`}
+                    >
+                      {activity.type}
+                    </span>
+                    <span className="text-xs text-gray-500">
+                      {formatTimestamp(activity.timestamp)}
+                    </span>
+                  </div>
+                  <p className="text-sm text-gray-300">{activity.message}</p>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </Modal>
+  );
+}
+
+function formatTimestamp(timestamp: number): string {
+  const seconds = Math.floor((Date.now() - timestamp) / 1000);
+  
+  if (seconds < 60) return `${seconds}s ago`;
+  if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
+  if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
+  return new Date(timestamp).toLocaleString();
+}
+Step 4: Create Loading Skeleton
+Let's add loading skeletons for better perceived performance.
+
+touch app/components/LoadingSkeleton.tsx
+File: `app/components/LoadingSkeleton.tsx`
+
+"use client";
+
+export function LoadingSkeleton({ type = "card" }: { type?: "card" | "list" | "stats" }) {
+  if (type === "stats") {
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        {[...Array(4)].map((_, i) => (
+          <div
+            key={i}
+            className="h-32 bg-gray-800 rounded-xl animate-pulse"
+          />
+        ))}
+      </div>
+    );
+  }
+
+  if (type === "list") {
+    return (
+      <div className="space-y-3">
+        {[...Array(5)].map((_, i) => (
+          <div
+            key={i}
+            className="h-20 bg-gray-800 rounded-lg animate-pulse"
+          />
+        ))}
+      </div>
+    );
+  }
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {[...Array(6)].map((_, i) => (
+        <div
+          key={i}
+          className="h-40 bg-gray-800 rounded-lg animate-pulse"
+        />
+      ))}
+    </div>
+  );
+}
+Step 5: Update Main Dashboard
+Now let's put it all together in a polished dashboard.
+
+File: `app/page.tsx`
+
+Replace with:
+
+"use client";
+
+import { useState } from "react";
+import { useQuery } from "convex/react";
+import { api } from "../convex/_generated/api";
+import { Id } from "../convex/_generated/dataModel";
+import { StatsCard } from "./components/StatsCard";
+import { SystemHealth } from "./components/SystemHealth";
+import { AgentStatusIndicator } from "./components/AgentStatusIndicator";
+import { AgentDetailModal } from "./components/AgentDetailModal";
+import { LoadingSkeleton } from "./components/LoadingSkeleton";
+
+export default function Home() {
+  const agents = useQuery(api.agents.getAllAgents);
+  const recentActivities = useQuery(api.activities.getAllActivities, { limit: 10 });
+  const tasks = useQuery(api.tasks.getAllTasks);
+  const [selectedAgentId, setSelectedAgentId] = useState<Id<"agents"> | null>(null);
+
+  const isLoading = agents === undefined || recentActivities === undefined || tasks === undefined;
+
+  if (isLoading) {
+    return (
+      <main className="min-h-screen bg-gray-900 text-white p-8">
+        <div className="max-w-7xl mx-auto space-y-8">
+          <LoadingSkeleton type="stats" />
+          <LoadingSkeleton type="card" />
+        </div>
+      </main>
+    );
+  }
+
+  const agentsOnline = agents.filter((a) => a.status === "online").length;
+  const agentsOffline = agents.filter((a) => a.status === "offline").length;
+  const agentsError = agents.filter((a) => a.status === "error").length;
+  const tasksPending = tasks.filter((t) => t.status === "pending").length;
+  const tasksInProgress = tasks.filter((t) => t.status === "in-progress").length;
+  const tasksComplete = tasks.filter((t) => t.status === "complete").length;
+
+  return (
+    <main className="min-h-screen bg-gray-900 text-white p-8">
+      <div className="max-w-7xl mx-auto space-y-8">
+        {/* Header */}
+        <div>
+          <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+            Mission Control
+          </h1>
+          <p className="text-gray-400 text-lg">
+            Real-time AI agent monitoring and management
+          </p>
+        </div>
+
+        {/* Stats Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <StatsCard
+            title="Total Agents"
+            value={agents.length}
+            subtitle="Registered"
+            color="purple"
+            icon={
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+            }
+          />
+
+          <StatsCard
+            title="Online Agents"
+            value={agentsOnline}
+            subtitle={`${Math.round((agentsOnline / agents.length) * 100)}% operational`}
+            color="green"
+            icon={
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            }
+          />
+
+          <StatsCard
+            title="Active Tasks"
+            value={tasksInProgress}
+            subtitle={`${tasksPending} pending`}
+            color="blue"
+            icon={
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+              </svg>
+            }
+          />
+
+          <StatsCard
+            title="Completed Tasks"
+            value={tasksComplete}
+            subtitle="All time"
+            color="green"
+            icon={
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+            }
+          />
+        </div>
+
+        {/* System Health */}
+        <SystemHealth
+          agentsOnline={agentsOnline}
+          agentsTotal={agents.length}
+          errorCount={agentsError}
+        />
+
+        {/* Main Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Agents List */}
+          <div className="bg-gray-800 rounded-xl border border-gray-700 p-6">
+            <h2 className="text-2xl font-semibold mb-4">Agents</h2>
+            <div className="space-y-3">
+              {agents.map((agent) => (
+                <button
+                  key={agent._id}
+                  onClick={() => setSelectedAgentId(agent._id)}
+                  className="w-full p-4 bg-gray-900 rounded-lg border border-gray-700 hover:border-gray-600 transition-colors text-left"
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="text-lg font-semibold">{agent.name}</h3>
+                    <AgentStatusIndicator
+                      status={agent.status}
+                      lastHeartbeat={agent.lastHeartbeat}
+                      size="sm"
+                    />
+                  </div>
+                  <div className="flex items-center justify-between text-sm text-gray-400">
+                    <span>Last seen: {formatTimestamp(agent.lastHeartbeat)}</span>
+                    <span className="text-blue-400">View details →</span>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Recent Activity */}
+          <div className="bg-gray-800 rounded-xl border border-gray-700 p-6">
+            <h2 className="text-2xl font-semibold mb-4">Recent Activity</h2>
+            <div className="space-y-3">
+              {recentActivities.map((activity) => (
+                <div
+                  key={activity._id}
+                  className="p-3 bg-gray-900 rounded-lg border border-gray-700"
+                >
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="font-semibold text-sm">
+                      {activity.agentName}
+                    </span>
+                    <span className="text-xs text-gray-500">
+                      {formatTimestamp(activity.timestamp)}
+                    </span>
+                  </div>
+                  <p className="text-sm text-gray-300">{activity.message}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Agent Detail Modal */}
+      <AgentDetailModal
+        isOpen={selectedAgentId !== null}
+        onClose={() => setSelectedAgentId(null)}
+        agentId={selectedAgentId}
+      />
+    </main>
+  );
+}
+
+function formatTimestamp(timestamp: number): string {
+  const seconds = Math.floor((Date.now() - timestamp) / 1000);
+  
+  if (seconds < 60) return `${seconds}s ago`;
+  if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
+  if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
+  return `${Math.floor(seconds / 86400)}d ago`;
+}
+Step 6: View the Polished Dashboard
+Open http://localhost:3000
+
+You should see:
+
+✅ Beautiful gradient header
+
+✅ Enhanced stat cards with icons
+
+✅ System health indicator with progress bar
+
+✅ Clickable agent cards
+
+✅ Agent detail modal with full info
+
+✅ Loading skeletons while data loads
+
+✅ Smooth transitions and hover effects
+
+Try clicking on an agent card to see the detail modal!
+
+What We Built in This Module
+Let's review what you accomplished:
+
+✅ Created enhanced stat cards with icons and trends
+
+✅ Built a system health indicator
+
+✅ Designed agent detail modals
+
+✅ Added loading skeletons
+
+✅ Improved visual hierarchy
+
+✅ Made the UI responsive
+
+✅ Added smooth transitions and hover effects
+
+✅ Polished typography and spacing
+
+✅ Created a production-ready dashboard
+
+Next Steps
+Your UI is now production-ready! In Module 9: Real-time Updates, we'll:
+
+Deep dive into Convex subscriptions
+
+Implement optimistic UI updates
+
+Add connection status indicators
+
+Handle offline scenarios
+
+Optimize performance
+
+Let's master real-time! ⚡
+
+Time to complete Module 8: 50-65 minutes
+
+Next module: Module 9 - Real-time Updates
+
+
+
+Chapter 1
+Realtime Updates & Subscriptions
+
+Content
+
+Notes
+Module 9: Real-time Updates
+Overview
+In this module, we'll master real-time data synchronization with Convex. You'll learn how subscriptions work, implement optimistic UI updates, and handle connection states.
+
+What we'll do:
+
+Understand Convex subscriptions deeply
+
+Add connection status indicators
+
+Implement optimistic UI updates
+
+Handle offline scenarios
+
+Optimize query performance
+
+Add polling fallbacks
+
+Time to complete: 40-55 minutes
+
+Understanding Real-Time in Convex
+How Subscriptions Work
+When you use useQuery:
+
+const agents = useQuery(api.agents.getAllAgents);
+What happens:
+
+Initial fetch: Convex fetches data immediately
+
+Subscribe: Opens a WebSocket connection
+
+Listen: Server pushes updates when data changes
+
+Re-render: React automatically updates your UI
+
+No polling. No manual refreshing. Just real-time data.
+
+The Magic Behind It
+Traditional approach (polling):
+
+Every 5 seconds:
+  fetch("/api/agents")
+  update UI
+Problems:
+
+❌ Wastes bandwidth
+
+❌ Delayed updates (5 second lag)
+
+❌ Battery drain
+
+❌ Complex code
+
+Convex approach (push):
+
+Subscribe once:
+  receive updates instantly when data changes
+Benefits:
+
+✅ Instant updates (milliseconds)
+
+✅ Minimal bandwidth
+
+✅ Battery efficient
+
+✅ Simple code
+
+Step 1: Add Connection Status Indicator
+Let's show users when they're connected/disconnected.
+
+touch app/components/ConnectionStatus.tsx
+File: `app/components/ConnectionStatus.tsx`
+
+"use client";
+
+import { useEffect, useState } from "react";
+
+export function ConnectionStatus() {
+  const [isOnline, setIsOnline] = useState(true);
+  const [showStatus, setShowStatus] = useState(false);
+
+  useEffect(() => {
+    const handleOnline = () => {
+      setIsOnline(true);
+      setShowStatus(true);
+      setTimeout(() => setShowStatus(false), 3000);
+    };
+
+    const handleOffline = () => {
+      setIsOnline(false);
+      setShowStatus(true);
+    };
+
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
+  }, []);
+
+  if (!showStatus && isOnline) return null;
+
+  return (
+    <div className="fixed bottom-4 right-4 z-50">
+      <div
+        className={`px-4 py-3 rounded-lg shadow-lg border ${
+          isOnline
+            ? "bg-green-500/10 border-green-500/30 text-green-400"
+            : "bg-red-500/10 border-red-500/30 text-red-400"
+        } animate-in slide-in-from-bottom-5`}
+      >
+        <div className="flex items-center gap-3">
+          <div
+            className={`w-2 h-2 rounded-full ${
+              isOnline ? "bg-green-500 animate-pulse" : "bg-red-500"
+            }`}
+          />
+          <span className="font-medium">
+            {isOnline ? "Connected" : "Connection lost"}
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+Understanding Connection Status
+Browser events:
+
+window.addEventListener("online", handleOnline);
+window.addEventListener("offline", handleOffline);
+Browsers fire these events when network changes.
+
+Auto-hide when connected:
+
+const handleOnline = () => {
+  setIsOnline(true);
+  setShowStatus(true);
+  setTimeout(() => setShowStatus(false), 3000);
+};
+Show "Connected" message briefly, then hide.
+
+Persistent when offline:
+
+const handleOffline = () => {
+  setIsOnline(false);
+  setShowStatus(true); // Don't auto-hide
+};
+Keep showing while offline.
+
+Step 2: Add Connection Status to Layout
+File: `app/layout.tsx`
+
+Add import:
+
+import { ConnectionStatus } from "./components/ConnectionStatus";
+Update body:
+
+<body className={inter.className}>
+  <ConvexClientProvider>
+    <Navigation />
+    {children}
+    <ConnectionStatus />
+  </ConvexClientProvider>
+</body>
+Now you'll see connection status changes!
+
+Test it:
+
+Open DevTools (F12)
+
+Go to Network tab
+
+Select "Offline" from dropdown
+
+See the red "Connection lost" indicator
+
+Switch back to "Online"
+
+See the green "Connected" indicator
+
+Step 3: Implement Optimistic UI for Tasks
+Optimistic UI updates the interface immediately, before the server confirms. This makes the app feel instant.
+
+File: `app/components/TaskCard.tsx`
+
+Update with optimistic updates:
+
+"use client";
+
+import { useState } from "react";
+import { useMutation } from "convex/react";
+import { api } from "../../convex/_generated/api";
+import { Id } from "../../convex/_generated/dataModel";
+
+type Task = {
+  _id: Id<"tasks">;
+  title: string;
+  description?: string;
+  status: "pending" | "in-progress" | "complete" | "failed";
+  priority: "low" | "medium" | "high";
+  assignedTo?: Id<"agents">;
+  agentName?: string | null;
+  createdAt: number;
+  dueAt?: number;
+};
+
+export function TaskCard({ task }: { task: Task }) {
+  const updateStatus = useMutation(api.tasks.updateTaskStatus);
+  const [isUpdating, setIsUpdating] = useState(false);
+  const [optimisticStatus, setOptimisticStatus] = useState(task.status);
+
+  const priorityColors = {
+    low: "border-blue-500/30 bg-blue-500/5",
+    medium: "border-yellow-500/30 bg-yellow-500/5",
+    high: "border-red-500/30 bg-red-500/5",
+  };
+
+  const priorityBadges = {
+    low: "bg-blue-500/10 text-blue-400 border-blue-500/20",
+    medium: "bg-yellow-500/10 text-yellow-400 border-yellow-500/20",
+    high: "bg-red-500/10 text-red-400 border-red-500/20",
+  };
+
+  const statusActions = {
+    pending: { label: "Start", nextStatus: "in-progress" as const },
+    "in-progress": { label: "Complete", nextStatus: "complete" as const },
+    complete: { label: "Completed", nextStatus: null },
+    failed: { label: "Failed", nextStatus: null },
+  };
+
+  // Use optimistic status if updating, otherwise use real status
+  const displayStatus = isUpdating ? optimisticStatus : task.status;
+  const action = statusActions[displayStatus];
+
+  const handleStatusChange = async () => {
+    if (!action.nextStatus) return;
+    
+    // Optimistic update
+    setIsUpdating(true);
+    setOptimisticStatus(action.nextStatus);
+    
+    try {
+      await updateStatus({
+        taskId: task._id,
+        status: action.nextStatus,
+      });
+    } catch (error) {
+      console.error("Failed to update task:", error);
+      // Revert on error
+      setOptimisticStatus(task.status);
+    } finally {
+      setIsUpdating(false);
+    }
+  };
+
+  const isOverdue =
+    task.dueAt && task.dueAt < Date.now() && displayStatus !== "complete";
+
+  return (
+    <div
+      className={`p-4 rounded-lg border ${priorityColors[task.priority]} hover:border-gray-600 transition-colors ${
+        isUpdating ? "opacity-70" : ""
+      }`}
+    >
+      <div className="flex items-start justify-between mb-2">
+        <h3 className="font-semibold text-white">{task.title}</h3>
+        <span
+          className={`px-2 py-1 rounded text-xs font-semibold border ${priorityBadges[task.priority]}`}
+        >
+          {task.priority}
+        </span>
+      </div>
+
+      {task.description && (
+        <p className="text-sm text-gray-400 mb-3">{task.description}</p>
+      )}
+
+      <div className="space-y-2 text-xs text-gray-500">
+        {task.agentName && (
+          <div className="flex items-center gap-1">
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+              />
+            </svg>
+            <span>{task.agentName}</span>
+          </div>
+        )}
+
+        {task.dueAt && (
+          <div
+            className={`flex items-center gap-1 ${isOverdue ? "text-red-400" : ""}`}
+          >
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <span>
+              {isOverdue ? "Overdue: " : "Due: "}
+              {formatTimestamp(task.dueAt)}
+            </span>
+          </div>
+        )}
+      </div>
+
+      {action.nextStatus && (
+        <button
+          onClick={handleStatusChange}
+          disabled={isUpdating}
+          className="w-full mt-3 px-3 py-2 bg-gray-700 hover:bg-gray-600 rounded text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {isUpdating ? "Updating..." : action.label}
+        </button>
+      )}
+    </div>
+  );
+}
+
+function formatTimestamp(timestamp: number): string {
+  const date = new Date(timestamp);
+  const now = new Date();
+  const diffMs = timestamp - now.getTime();
+  const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+  
+  if (diffHours < 0) return `${Math.abs(diffHours)}h ago`;
+  if (diffHours < 24) return `in ${diffHours}h`;
+  return date.toLocaleDateString();
+}
+Understanding Optimistic UI
+Track updating state:
+
+const [isUpdating, setIsUpdating] = useState(false);
+const [optimisticStatus, setOptimisticStatus] = useState(task.status);
+Update immediately:
+
+setIsUpdating(true);
+setOptimisticStatus(action.nextStatus); // Update UI now!
+
+try {
+  await updateStatus({...}); // Server update happens in background
+} catch (error) {
+  setOptimisticStatus(task.status); // Revert if failed
+}
+Show optimistic state:
+
+const displayStatus = isUpdating ? optimisticStatus : task.status;
+The result: Button click feels instant, even on slow connections!
+
+Step 4: Add Loading States
+Let's handle undefined data gracefully throughout the app.
+
+File: `app/components/LoadingSkeleton.tsx`
+
+Add more skeleton types:
+
+"use client";
+
+export function LoadingSkeleton({
+  type = "card",
+}: {
+  type?: "card" | "list" | "stats" | "mini";
+}) {
+  if (type === "mini") {
+    return (
+      <div className="h-8 w-32 bg-gray-800 rounded animate-pulse" />
+    );
+  }
+
+  if (type === "stats") {
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        {[...Array(4)].map((_, i) => (
+          <div key={i} className="h-32 bg-gray-800 rounded-xl animate-pulse" />
+        ))}
+      </div>
+    );
+  }
+
+  if (type === "list") {
+    return (
+      <div className="space-y-3">
+        {[...Array(5)].map((_, i) => (
+          <div key={i} className="h-20 bg-gray-800 rounded-lg animate-pulse" />
+        ))}
+      </div>
+    );
+  }
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {[...Array(6)].map((_, i) => (
+        <div key={i} className="h-40 bg-gray-800 rounded-lg animate-pulse" />
+      ))}
+    </div>
+  );
+}
+Use throughout your app:
+
+const agents = useQuery(api.agents.getAllAgents);
+
+if (agents === undefined) {
+  return <LoadingSkeleton type="list" />;
+}
+Step 5: Optimize Query Performance
+Limit Data Fetching
+Instead of fetching all data, limit queries:
+
+// ❌ Bad: Fetches everything
+const activities = useQuery(api.activities.getAllActivities);
+
+// ✅ Good: Limits to 50
+const activities = useQuery(api.activities.getAllActivities, { limit: 50 });
+Use Specific Queries
+// ❌ Bad: Fetches all agents, filters client-side
+const agents = useQuery(api.agents.getAllAgents);
+const onlineAgents = agents?.filter(a => a.status === "online");
+
+// ✅ Good: Filters on server
+const onlineAgents = useQuery(api.agents.getAgentsByStatus, { status: "online" });
+Paginate Long Lists
+For large datasets, implement pagination:
+
+File: `convex/activities.ts`
+
+Add pagination support:
+
+export const getActivitiesPaginated = query({
+  args: {
+    limit: v.number(),
+    cursor: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    const results = await ctx.db
+      .query("activities")
+      .withIndex("by_timestamp")
+      .order("desc")
+      .paginate({
+        numItems: args.limit,
+        cursor: args.cursor ? args.cursor : null,
+      });
+
+    return results;
+  },
+});
+Use in components:
+
+const { results, continueCursor, isLoading } = usePaginatedQuery(
+  api.activities.getActivitiesPaginated,
+  { limit: 20 },
+  { initialNumItems: 20 }
+);
+Step 6: Handle Stale Data
+Add timestamps to show data freshness:
+
+touch app/components/DataFreshness.tsx
+File: `app/components/DataFreshness.tsx`
+
+"use client";
+
+import { useEffect, useState } from "react";
+
+export function DataFreshness({ timestamp }: { timestamp?: number }) {
+  const [, setNow] = useState(Date.now());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setNow(Date.now());
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  if (!timestamp) return null;
+
+  const seconds = Math.floor((Date.now() - timestamp) / 1000);
+  
+  let color = "text-green-400";
+  let label = "Fresh";
+  
+  if (seconds > 60) {
+    color = "text-yellow-400";
+    label = "Stale";
+  }
+  
+  if (seconds > 300) {
+    color = "text-red-400";
+    label = "Very stale";
+  }
+
+  return (
+    <div className="flex items-center gap-2 text-xs">
+      <div className={`w-2 h-2 rounded-full ${color.replace("text-", "bg-")}`} />
+      <span className={color}>
+        {label} ({seconds}s ago)
+      </span>
+    </div>
+  );
+}
+What We Built in This Module
+Let's review what you accomplished:
+
+✅ Understood how Convex subscriptions work
+
+✅ Added connection status indicators
+
+✅ Implemented optimistic UI updates
+
+✅ Added loading skeletons throughout
+
+✅ Optimized query performance
+
+✅ Handled offline scenarios
+
+✅ Added data freshness indicators
+
+✅ Made the app feel instant and responsive
+
+Real-Time Best Practices
+What we learned:
+
+Subscribe once, update automatically – No polling needed
+
+Optimistic updates – Make UI feel instant
+
+Limit data fetching – Don't fetch what you don't need
+
+Handle loading states – Always check for undefined
+
+Show connection status – Users need feedback
+
+Paginate long lists – Performance matters
+
+Testing Real-Time
+Try these experiments:
+
+Multi-tab test:
+
+   - Open dashboard in two browser tabs
+
+   - Update a task in one tab
+
+   - Watch it update in the other instantly!
+
+Network simulation:
+
+   - Open DevTools → Network
+
+   - Set to "Slow 3G"
+
+   - Try updating tasks
+
+   - Notice optimistic UI still feels fast
+
+Offline test:
+
+   - Set network to "Offline"
+
+   - Try clicking buttons
+
+   - See error handling and connection status
+
+Next Steps
+You've mastered real-time! In Module 10: Deployment, we'll:
+
+Deploy to Vercel
+
+Set up production Convex
+
+Configure environment variables
+
+Add a custom domain
+
+Go live with Mission Control!
+
+Time to ship it! 🚀
+
+Time to complete Module 9: 40-55 minutes
+
+Next module: Module 10 - Deployment
+
+
+Chapter 1
+Deployment & Production
+
+Content
+
+Notes
+Module 10: Deployment
+Overview
+In this final module, you'll deploy Mission Control to production. By the end, you'll have a live URL you can share with anyone.
+
+What we'll do:
+
+Prepare the app for production
+
+Deploy to Vercel
+
+Set up production Convex
+
+Configure environment variables
+
+Test the live deployment
+
+(Optional) Add a custom domain
+
+Launch checklist
+
+Time to complete: 30-45 minutes
+
+Prerequisites
+Before deploying, make sure you have:
+
+[ ] GitHub account (free)
+
+[ ] Vercel account (free) – Sign up at [vercel.com](https://vercel.com)
+
+[ ] Your project committed to git
+
+[ ] All code working locally
+
+Step 1: Prepare for Production
+1.1 Create a Production Build
+Test that your app builds successfully:
+
+npm run build
+You should see:
+
+✓ Compiled successfully
+✓ Linting and checking validity of types
+✓ Collecting page data
+✓ Generating static pages
+If you see errors, fix them before continuing.
+
+Common build errors:
+
+TypeScript errors:
+
+Type 'X' is not assignable to type 'Y'
+Fix type mismatches in your code.
+
+Missing dependencies:
+
+Cannot find module 'X'
+Run npm install to ensure all dependencies are installed.
+
+1.2 Test Production Build Locally
+npm run build
+npm start
+Open [http://localhost:3000](http://localhost:3000) and verify everything works.
+
+What to test:
+
+✅ Dashboard loads
+
+✅ Tasks page works
+
+✅ Activities page works
+
+✅ Navigation works
+
+✅ No console errors
+
+Press Ctrl+C to stop the server.
+
+1.3 Create a Git Repository
+If you haven't already:
+
+git init
+git add .
+git commit -m "Initial commit: Mission Control"
+1.4 Push to GitHub
+Create a new repository on GitHub:
+
+Go to [github.com/new](https://github.com/new)
+
+Name: mission-control
+
+Description: "Real-time AI agent monitoring dashboard"
+
+Set to Private (or Public if you want)
+
+Don't initialize with README (you already have code)
+
+Click "Create repository"
+
+Push your code:
+
+git remote add origin https://github.com/YOUR_USERNAME/mission-control.git
+git branch -M main
+git push -u origin main
+Refresh GitHub – your code should be there!
+
+Step 2: Deploy to Vercel
+2.1 Import Project
+Go to [vercel.com](https://vercel.com)
+
+Click "Add New..." → "Project"
+
+Import your mission-control repository
+
+Click "Import"
+
+2.2 Configure Project
+Vercel should auto-detect Next.js settings:
+
+Framework Preset: Next.js
+Build Command: next build
+Output Directory: .next
+Install Command: npm install
+Leave these as default.
+
+2.3 Environment Variables
+Don't deploy yet! We need to add environment variables.
+
+In the "Environment Variables" section:
+
+Add this variable:
+
+NEXT_PUBLIC_CONVEX_URL = [leave empty for now]
+We'll fill this in after setting up production Convex.
+
+Important: Click the three checkboxes (Production, Preview, Development) so it applies to all environments.
+
+2.4 Deploy (Initial)
+Click "Deploy"
+
+Vercel will build your app. This takes 1-2 minutes.
+
+You'll see:
+
+Building...
+✓ Build completed
+✓ Deployment ready
+Don't visit the URL yet – we need to set up Convex first.
+
+Step 3: Set Up Production Convex
+3.1 Create Production Deployment
+In your local terminal:
+
+npx convex deploy
+You'll see:
+
+? What would you like to name your production deployment? (mission-control-prod)
+Press Enter to accept.
+
+Convex will:
+
+Create a production deployment
+
+Push your schema and functions
+
+Generate a production URL
+
+You'll see:
+
+✓ Created production deployment: mission-control-prod-xxxx
+✓ Deployed functions
+✓ Schema deployed
+
+Production URL:
+https://xxx-yyy-zzz.convex.cloud
+Copy this URL! You'll need it.
+
+3.2 Update Vercel Environment Variables
+Go back to Vercel dashboard
+
+Go to your project → Settings → Environment Variables
+
+Find NEXT_PUBLIC_CONVEX_URL
+
+Click "Edit"
+
+Paste your production Convex URL
+
+Save
+
+3.3 Redeploy
+Now that environment variables are set:
+
+Go to Deployments tab
+
+Click the three dots on the latest deployment
+
+Click "Redeploy"
+
+Confirm
+
+This rebuilds your app with the correct Convex URL.
+
+Step 4: Test Your Live Deployment
+Once redeployment finishes:
+
+Click "Visit" to open your live site
+
+You'll get a URL like: https://mission-control-xyz.vercel.app
+
+Test everything:
+
+4.1 Dashboard
+✅ Loads without errors
+
+✅ Shows agents (if you seeded data)
+
+✅ Real-time updates work
+
+4.2 Create Test Agent
+Send a heartbeat to your production API:
+
+curl -X POST https://YOUR-CONVEX-URL.convex.site/api/heartbeat \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "production-test-agent",
+    "status": "online",
+    "metadata": {
+      "version": "1.0.0",
+      "platform": "production"
+    }
+  }'
+Refresh your dashboard – the agent should appear!
+
+4.3 Create a Task
+Go to /tasks
+
+Click "+ New Task"
+
+Create a task
+
+Verify it appears
+
+Update its status
+
+4.4 Check Activities
+Go to /activities
+
+Verify activities are logging
+
+Test filters
+
+If everything works: Congratulations! 🎉 Your app is live!
+
+Step 5: Seed Production Data
+Your production database is empty. Let's add sample data:
+
+npx convex run seed:seedAll --prod
+Note the `--prod` flag – this runs against production.
+
+You'll see:
+
+{
+  "message": "Seeded successfully",
+  "counts": {
+    "agents": 4,
+    "activities": 6,
+    "tasks": 4
+  }
+}
+Refresh your dashboard – data should appear!
+
+Step 6: Custom Domain (Optional)
+Want a custom domain like mission-control.yourname.com?
+
+6.1 Buy a Domain
+Buy from:
+
+[Namecheap](https://namecheap.com)
+
+[Google Domains](https://domains.google)
+
+[Cloudflare](https://cloudflare.com)
+
+6.2 Add Domain to Vercel
+Go to your project → Settings → Domains
+
+Enter your domain
+
+Click "Add"
+
+Follow DNS instructions
+
+Vercel will show you DNS records to add:
+
+Type: A
+Name: @
+Value: 76.76.21.21
+
+Type: CNAME
+Name: www
+Value: cname.vercel-dns.com
+6.3 Update DNS
+Go to your domain registrar and add those DNS records.
+
+Wait 24-48 hours for DNS propagation.
+
+Once propagated, your site will be live at your custom domain!
+
+Step 7: Enable Automatic Deployments
+Good news: This is already set up!
+
+How it works:
+
+You push code to GitHub: git push
+
+Vercel detects the push
+
+Automatically builds and deploys
+
+New version goes live in ~2 minutes
+
+To deploy updates:
+
+# Make changes
+git add .
+git commit -m "Add new feature"
+git push
+Vercel automatically deploys. Watch progress in the Vercel dashboard.
+
+Step 8: Production Best Practices
+8.1 Environment-Specific Configurations
+Create a production config file:
+
+touch lib/config.ts
+File: `lib/config.ts`
+
+export const config = {
+  isProd: process.env.NODE_ENV === "production",
+  isDev: process.env.NODE_ENV === "development",
+  convexUrl: process.env.NEXT_PUBLIC_CONVEX_URL!,
+  
+  // Feature flags
+  features: {
+    analytics: process.env.NODE_ENV === "production",
+    debugMode: process.env.NODE_ENV === "development",
+  },
+};
+8.2 Add Analytics (Optional)
+Add Vercel Analytics:
+
+npm install @vercel/analytics
+File: `app/layout.tsx`
+
+import { Analytics } from "@vercel/analytics/react";
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body>
+        <ConvexClientProvider>
+          <Navigation />
+          {children}
+          <ConnectionStatus />
+          <Analytics />
+        </ConvexClientProvider>
+      </body>
+    </html>
+  );
+}
+Now you get traffic analytics in Vercel dashboard!
+
+8.3 Error Monitoring
+For production error tracking, consider:
+
+[Sentry](https://sentry.io) – Error tracking
+
+[LogRocket](https://logrocket.com) – Session replay
+
+[Vercel Monitoring](https://vercel.com/docs/concepts/analytics) – Built-in
+
+8.4 Backups
+Convex automatically backs up your data, but you can export manually:
+
+npx convex export --prod > backup.jsonl
+Store backups safely!
+
+Step 9: Going Live Checklist
+Before sharing your app:
+
+Performance
+[ ] Test on slow 3G connection
+
+[ ] Test on mobile devices
+
+[ ] Check Lighthouse score (aim for 90+)
+
+[ ] Verify images are optimized
+
+Security
+[ ] Remove console.logs with sensitive data
+
+[ ] Check that .env.local is in .gitignore
+
+[ ] Verify API endpoints validate input
+
+[ ] Consider adding authentication (if needed)
+
+Functionality
+[ ] All pages load correctly
+
+[ ] Forms submit successfully
+
+[ ] Real-time updates work
+
+[ ] Error states handle gracefully
+
+[ ] Mobile navigation works
+
+SEO (if public)
+[ ] Add meta descriptions
+
+[ ] Set proper page titles
+
+[ ] Add Open Graph tags
+
+[ ] Create a favicon
+
+Documentation
+[ ] Update README with deployment instructions
+
+[ ] Document environment variables
+
+[ ] Add usage instructions
+
+[ ] Include screenshots
+
+Step 10: Share Your Work!
+Your Mission Control is live! Here's how to share it:
+
+Share the URL
+Send your Vercel URL to:
+
+Team members
+
+Clients
+
+Portfolio
+
+Social media
+
+Add to Portfolio
+GitHub README:
+
+Add a banner:
+
+# Mission Control
+
+Real-time AI agent monitoring dashboard built with Next.js and Convex.
+
+🚀 [Live Demo](https://your-app.vercel.app)
+
+## Features
+
+- Real-time agent monitoring
+- Task management
+- Activity feed
+- Beautiful UI with dark mode
+
+## Tech Stack
+
+- Next.js 15
+- Convex
+- TypeScript
+- Tailwind CSS
+Post on Social Media
+Twitter/X:
+
+Just deployed Mission Control – a real-time dashboard for monitoring AI agents! 
+
+Built with @nextjs and @convexdev in just [X] hours.
+
+✅ Real-time updates
+✅ Task management  
+✅ Activity logging
+
+Check it out: [your-url]
+
+#webdev #nextjs #typescript
+LinkedIn:
+
+I'm excited to share Mission Control, a real-time monitoring dashboard for AI agents!
+
+Key features:
+• Live agent status tracking
+• Task assignment and management
+• Real-time activity feed
+• Beautiful, responsive UI
+
+Built with Next.js, Convex, TypeScript, and Tailwind CSS.
+
+[Link] [Screenshot]
+
+What projects are you building with AI agents? Let me know in the comments!
+Troubleshooting Deployment
+Build fails on Vercel
+Error: "Type error in X.tsx"
+
+Fix:
+
+npm run build
+Fix TypeScript errors locally first.
+
+Environment variables not working
+Error: "NEXT_PUBLIC_CONVEX_URL is undefined"
+
+Fix:
+
+Verify variable is set in Vercel
+
+Check it's named exactly NEXT_PUBLIC_CONVEX_URL
+
+Redeploy after adding variables
+
+Convex functions not found
+Error: "Function X not found"
+
+Fix:
+
+npx convex deploy --prod
+Ensure production functions are deployed.
+
+Real-time updates not working
+Issue: Changes don't appear live
+
+Fix:
+
+Check browser console for WebSocket errors
+
+Verify Convex URL is correct
+
+Check that useQuery is used (not regular fetch)
+
+What You Accomplished
+🎉 Congratulations! You've completed the entire course!
+
+What You Built
+✅ A production-ready web application
+
+✅ Real-time monitoring system
+
+✅ Complete task management
+
+✅ Activity logging and filtering
+
+✅ Beautiful, responsive UI
+
+✅ Deployed to the internet
+
+Skills You Learned
+✅ Next.js 15 and App Router
+
+✅ Convex real-time database
+
+✅ TypeScript for type safety
+
+✅ Tailwind CSS for styling
+
+✅ Real-time subscriptions
+
+✅ Deployment workflows
+
+✅ Production best practices
+
+Your Deployment URLs
+Production App:
+
+https://your-app.vercel.app
+
+Convex Dashboard:
+
+https://dashboard.convex.dev
+
+GitHub Repository:
+
+https://github.com/YOUR_USERNAME/mission-control
+
+Next Steps
+Now that Mission Control is live, consider:
+
+Enhance Features
+Authentication – Add user login (NextAuth.js, Clerk)
+
+Notifications – Email/SMS alerts for critical events
+
+Charts – Visualize agent performance over time
+
+Export – Download reports as CSV/PDF
+
+Search – Full-text search across activities
+
+Webhooks – Trigger external services
+
+API – Expose a REST API for integrations
+
+Scale It
+Multi-tenant – Support multiple teams/users
+
+Permissions – Role-based access control
+
+Audit logs – Track who did what
+
+Rate limiting – Prevent abuse
+
+Load testing – Ensure it scales
+
+Learn More
+Convex Docs – [docs.convex.dev](https://docs.convex.dev)
+
+Next.js Docs – [nextjs.org/docs](https://nextjs.org/docs)
+
+TypeScript – [typescriptlang.org](https://typescriptlang.org)
+
+Tailwind – [tailwindcss.com](https://tailwindcss.com)
+
+Thank You!
+Thank you for completing Mission Control! 
+
+You've gone from zero to deployed in 10 modules. That's no small feat.
+
+What's next?
+
+Build something new with these skills
+
+Share your project with the community
+
+Help others learning to code
+
+Keep building amazing things
+
+If you found this course valuable, consider:
+
+⭐ Starring the repo on GitHub
+
+📱 Sharing on social media
+
+💬 Leaving feedback
+
+Happy building! 🚀
+
+Time to complete Module 10: 30-45 minutes
+
+Course complete! You did it! 🎉
+
+Quick Reference
+Deploy Commands
+# Production build
+npm run build
+
+# Deploy Convex to production
+npx convex deploy --prod
+
+# Run function in production
+npx convex run functionName:fnName --prod
+
+# Export production data
+npx convex export --prod > backup.jsonl
+Update Workflow
+# Make changes locally
+# Test with npm run dev
+
+# Commit and push
+git add .
+git commit -m "Description"
+git push
+
+# Vercel auto-deploys!
+Environment Variables
+Local (.env.local):
+
+CONVEX_DEPLOYMENT=dev:your-project
+NEXT_PUBLIC_CONVEX_URL=https://xxx.convex.cloud
+Production (Vercel):
+
+NEXT_PUBLIC_CONVEX_URL=https://xxx.convex.cloud
+The End 🎓

@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-03-07T06:45:43.135704",
+  "current_status": "has_api_key_need_deploy_key",
+  "steps": [
+    "\u26a0\ufe0f  Has API key but needs deploy key for deployment",
+    "\u2705 Has Convex URL: https://fancy-ape-615.convex.cloud",
+    "\u26a0\ufe0f  Deployment target may need adjustment: production"
+  ],
+  "missing_items": [],
+  "next_actions": [
+    "1. Get deploy key from Convex dashboard:",
+    "   - Go to https://dashboard.convex.dev",
+    "   - Navigate to your project",
+    "   - Go to Settings \u2192 Deploy key",
+    "   - Copy the deploy key (format: instance-name|key)",
+    "2. Update .env.local with CONVEX_DEPLOY_KEY",
+    "3. Run deployment commands"
+  ]
+}

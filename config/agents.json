@@ -1,0 +1,42 @@
+[
+  {
+    "id": "forge",
+    "name": "Forge",
+    "description": "Code Builder",
+    "status": "active",
+    "lastHeartbeat": "2026-03-07T06:07:09.279000Z",
+    "tasksCompleted": 0
+  },
+  {
+    "id": "scout",
+    "name": "Scout",
+    "description": "Research & Discovery",
+    "status": "active",
+    "lastHeartbeat": "2026-03-07T06:07:09.279000Z",
+    "tasksCompleted": 0
+  },
+  {
+    "id": "ghost",
+    "name": "Ghost",
+    "description": "Outreach & Growth",
+    "status": "idle",
+    "lastHeartbeat": "2026-03-07T06:07:09.279000Z",
+    "tasksCompleted": 0
+  },
+  {
+    "id": "closer",
+    "name": "Closer",
+    "description": "Sales & Deals",
+    "status": "sleeping",
+    "lastHeartbeat": "2026-03-07T06:07:09.279000Z",
+    "tasksCompleted": 0
+  },
+  {
+    "id": "hype",
+    "name": "Hype",
+    "description": "Social & Content",
+    "status": "active",
+    "lastHeartbeat": "2026-03-07T06:07:09.279000Z",
+    "tasksCompleted": 0
+  }
+]
