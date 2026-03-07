@@ -10,7 +10,7 @@ import sys
 
 # Current configuration from .env.local
 CONVEX_URL = "https://fancy-ape-615.convex.cloud"
-CONVEX_API_KEY = "eyJ2MiI6IjVmNWU1MmJlMTVlYTQ2NGE4OWFhYWRkMGFkNmFlY2VjIn0="
+CONVEX_API_KEY = "YOUR_CONVEX_API_KEY_HERE"
 
 def test_http_api():
     """Test Convex HTTP API with current API key"""

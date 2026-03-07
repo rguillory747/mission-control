@@ -16,6 +16,20 @@ const optionsHandler = httpAction(async () => {
   return new Response(null, { status: 204, headers: corsHeaders });
 });
 
+// GET /api/agents — get all agents
+http.route({
+  path: "/api/agents",
+  method: "GET",
+  handler: httpAction(async (ctx) => {
+    const agents = await ctx.runQuery(api.agents.list);
+    return new Response(
+      JSON.stringify({ ok: true, agents }),
+      { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+    );
+  }),
+});
+http.route({ path: "/api/agents", method: "OPTIONS", handler: optionsHandler });
+
 // POST /api/heartbeat — agent reports alive + what they're doing
 http.route({
   path: "/api/heartbeat",

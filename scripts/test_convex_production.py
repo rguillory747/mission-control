@@ -9,7 +9,7 @@ import sys
 
 # Updated configuration
 CONVEX_URL = "https://good-corgi-153.convex.cloud"
-CONVEX_API_KEY = "eyJ2MiI6IjVmNWU1MmJlMTVlYTQ2NGE4OWFhYWRkMGFkNmFlY2VjIn0="
+CONVEX_API_KEY = "YOUR_CONVEX_API_KEY_HERE"
 
 def test_endpoint(endpoint, method="GET", data=None):
     """Test a Convex endpoint"""

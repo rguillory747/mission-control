@@ -2,7 +2,32 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
   try {
-    // Mock data for now
+    // Try to get from Convex first
+    const convexUrl = process.env.NEXT_PUBLIC_CONVEX_URL;
+    if (convexUrl) {
+      try {
+        const { ConvexHttpClient } = await import('convex/browser');
+        const { api } = await import('@/convex/_generated/api');
+        
+        const convex = new ConvexHttpClient(convexUrl);
+        const agents = await convex.query(api.agents.list);
+
+        console.log(`[Mission Control] Fetched ${agents?.length || 0} agents from Convex`);
+
+        return NextResponse.json({
+          ok: true,
+          agents: agents || [],
+          count: agents?.length || 0,
+          source: 'convex',
+          timestamp: new Date().toISOString()
+        });
+      } catch (convexError) {
+        console.warn('[Mission Control] Convex fetch failed, using mock data:', convexError);
+        // Fall through to mock data
+      }
+    }
+
+    // Mock data as fallback
     const mockAgents = [
       {
         _id: "mock-1",
@@ -48,6 +73,7 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error('[Mission Control] Agents fetch error:', error);
     
+    // Even on error, return something
     return NextResponse.json({
       ok: false,
       error: 'Failed to fetch agents',

@@ -9,12 +9,7 @@
       }
     }
   ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/api/ops/$1"
-    }
-  ],
+  "routes": [],
   "env": {
     "NEXT_PUBLIC_CONVEX_URL": "https://good-corgi-153.convex.cloud"
   }
