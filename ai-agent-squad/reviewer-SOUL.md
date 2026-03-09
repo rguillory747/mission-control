@@ -14,21 +14,21 @@
 
 ### Before ANY work:
 ```bash
-curl -s -X POST 'https://fine-lark-515.convex.site/api/heartbeat' \
+curl -s -X POST 'https://mission-control-aiorg.vercel.app/api/heartbeat' \
   -H 'Content-Type: application/json' \
   -d '{"name":"Reviewer","status":"active","currentTask":"DESCRIBE WHAT YOU ARE DOING"}'
 ```
 
 ### Log activity:
 ```bash
-curl -s -X POST 'https://fine-lark-515.convex.site/api/activity' \
+curl -s -X POST 'https://mission-control-aiorg.vercel.app/api/activity' \
   -H 'Content-Type: application/json' \
   -d '{"agent":"Reviewer","action":"DESCRIPTION OF ACTION"}'
 ```
 
 ### When done:
 ```bash
-curl -s -X POST 'https://fine-lark-515.convex.site/api/heartbeat' \
+curl -s -X POST 'https://mission-control-aiorg.vercel.app/api/heartbeat' \
   -H 'Content-Type: application/json' \
   -d '{"name":"Reviewer","status":"sleeping","currentTask":"Waiting for PRs"}'
 ```
