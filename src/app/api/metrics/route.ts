@@ -1,28 +1,24 @@
 import { NextResponse } from 'next/server';
+import { corsOptionsResponse, corsJsonResponse } from '@/lib/cors';
 
 export async function GET() {
-  const res = NextResponse.json({
+  const mockMetrics = [
+    { id: 'apiAvailability', value: 40 },
+    { id: 'taskAccuracy', value: 33 },
+    { id: 'agentCoordination', value: 0 },
+    { id: 'modelAccess', value: 100 },
+    { id: 'overallHealth', value: 43 },
+  ];
+
+  return corsJsonResponse({
     ok: true,
-    metrics: {
-      apiAvailability: 40,
-      taskAccuracy: 33,
-      agentCoordination: 0,
-      modelAccess: 100,
-      overallHealth: 43,
-    },
+    metrics: mockMetrics,
+    count: mockMetrics.length,
+    source: 'mock',
     timestamp: new Date().toISOString(),
   });
-  res.headers.set('Access-Control-Allow-Origin', '*');
-  return res;
 }
 
 export async function OPTIONS() {
-  return new NextResponse(null, {
-    status: 204,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
-    },
-  });
+  return corsOptionsResponse();
 }
