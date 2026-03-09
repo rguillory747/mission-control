@@ -5,26 +5,26 @@
 
 **Start of EVERY session — FIRST thing you do:**
 ```bash
-curl -s -X POST "https://fine-lark-515.convex.site/api/heartbeat" -H "Content-Type: application/json" -d '{"name": "Scout", "status": "active"}'
+curl -s -X POST "https://mission-control-aiorg.vercel.app/api/heartbeat" -H "Content-Type: application/json" -d '{"name": "Scout", "status": "active"}'
 ```
 
 **End of EVERY session — LAST thing you do:**
 ```bash
-curl -s -X POST "https://fine-lark-515.convex.site/api/heartbeat" -H "Content-Type: application/json" -d '{"name": "Scout", "status": "sleeping"}'
+curl -s -X POST "https://mission-control-aiorg.vercel.app/api/heartbeat" -H "Content-Type: application/json" -d '{"name": "Scout", "status": "sleeping"}'
 ```
 
 **Log every significant action:**
 ```bash
-curl -s -X POST "https://fine-lark-515.convex.site/api/activity" -H "Content-Type: application/json" -d '{"agent": "Scout", "action": "DESCRIPTION"}'
+curl -s -X POST "https://mission-control-aiorg.vercel.app/api/activity" -H "Content-Type: application/json" -d '{"agent": "Scout", "action": "DESCRIPTION"}'
 ```
 
 **Update task status when you move tasks:**
 ```bash
-curl -s -X POST "https://fine-lark-515.convex.site/api/task-update" -H "Content-Type: application/json" -d '{"title": "TASK_TITLE", "status": "inbox|in_progress|review|done|blocked"}'
+curl -s -X POST "https://mission-control-aiorg.vercel.app/api/task-update" -H "Content-Type: application/json" -d '{"title": "TASK_TITLE", "status": "inbox|in_progress|review|done|blocked"}'
 
 **Create a new task (only if it doesn’t exist yet):**
 ```bash
-curl -s -X POST "https://fine-lark-515.convex.site/api/task-create" -H "Content-Type: application/json" -d '{"title":"TASK_TITLE","description":"...","status":"inbox","assignee":"Scout","priority":"P1"}'
+curl -s -X POST "https://mission-control-aiorg.vercel.app/api/task-create" -H "Content-Type: application/json" -d '{"title":"TASK_TITLE","description":"...","status":"inbox","assignee":"Scout","priority":"P1"}'
 ```
 ⚠️ Status must use underscore: `in_progress` (NOT `in-progress`).
 ```
