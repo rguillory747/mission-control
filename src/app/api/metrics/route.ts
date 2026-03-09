@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+// src/app/api/metrics/route.ts
 import { corsOptionsResponse, corsJsonResponse } from '@/lib/cors';
 
 export async function GET() {
