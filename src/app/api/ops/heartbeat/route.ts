@@ -1,4 +1,5 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { withCors, corsOptionsResponse, corsJsonResponse, corsErrorResponse } from '@/lib/cors';
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -15,7 +16,7 @@ export async function GET() {
   );
 
   if (!hasSupabase) {
-    return NextResponse.json({
+    return corsJsonResponse({
       ok: true,
       message: "Heartbeat endpoint ready (in-memory mode)",
       timestamp: new Date().toISOString(),
@@ -27,7 +28,7 @@ export async function GET() {
   }
 
   // With Supabase, record real heartbeat
-  return NextResponse.json({
+  return corsJsonResponse({
     ok: true,
     recorded: true,
     timestamp: new Date().toISOString()
@@ -39,22 +40,26 @@ export async function GET() {
  * 
  * Record a heartbeat from an agent.
  */
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const { agent, status } = body;
 
-    return NextResponse.json({
+    return corsJsonResponse({
       ok: true,
       agent: agent || "unknown",
       status: status || "active",
       recorded: new Date().toISOString()
     });
   } catch {
-    return NextResponse.json({
+    return corsJsonResponse({
       ok: true,
       message: "Heartbeat received",
       timestamp: new Date().toISOString()
     });
   }
+}
+
+export async function OPTIONS() {
+  return corsOptionsResponse();
 }

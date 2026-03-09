@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ConvexHttpClient } from 'convex/browser';
 import { api } from '../../../../convex/_generated/api';
+import { withCors, corsOptionsResponse, corsJsonResponse, corsErrorResponse } from '@/lib/cors';
 
 export async function POST(request: NextRequest) {
   try {
@@ -8,20 +9,14 @@ export async function POST(request: NextRequest) {
     const { name, status, currentTask } = body;
 
     if (!name || !status) {
-      return NextResponse.json(
-        { error: 'name and status are required' },
-        { status: 400 }
-      );
+      return corsErrorResponse('name and status are required', 400);
     }
 
     // Get Convex URL from environment
     const convexUrl = process.env.NEXT_PUBLIC_CONVEX_URL;
     if (!convexUrl) {
       console.error('[Mission Control] NEXT_PUBLIC_CONVEX_URL not set');
-      return NextResponse.json(
-        { error: 'Server configuration error' },
-        { status: 500 }
-      );
+      return corsErrorResponse('Server configuration error', 500);
     }
 
     // Create Convex HTTP client and call mutation
@@ -35,7 +30,7 @@ export async function POST(request: NextRequest) {
     console.log(`[Mission Control] Heartbeat from ${name}: ${status} - ${currentTask || 'No task'}`);
     console.log(`[Convex] Updated agent ${name} with status ${status}`);
 
-    return NextResponse.json({
+    return corsJsonResponse({
       ok: true,
       message: `Heartbeat received from ${name}`,
       agent: name,
@@ -46,20 +41,10 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error('[Mission Control] Heartbeat error:', error);
-    return NextResponse.json(
-      { error: 'Failed to process heartbeat', details: String(error) },
-      { status: 500 }
-    );
+    return corsErrorResponse(`Failed to process heartbeat: ${error}`, 500);
   }
 }
 
 export async function OPTIONS() {
-  return new NextResponse(null, {
-    status: 204,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
-    },
-  });
+  return corsOptionsResponse();
 }

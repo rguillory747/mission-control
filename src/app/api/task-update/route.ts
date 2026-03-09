@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { withCors, corsOptionsResponse, corsJsonResponse, corsErrorResponse } from '@/lib/cors';
 
 export async function POST(request: NextRequest) {
   try {
@@ -6,10 +7,7 @@ export async function POST(request: NextRequest) {
     const { title, status, assignee } = body;
 
     if (!title || !status) {
-      return NextResponse.json(
-        { error: 'title and status are required' },
-        { status: 400 }
-      );
+      return corsErrorResponse('title and status are required', 400);
     }
 
     // For now, log the task update
@@ -18,27 +16,17 @@ export async function POST(request: NextRequest) {
     // TODO: Integrate with Convex backend
     // This should call Convex mutation to update task status
     
-    return NextResponse.json({
+    return corsJsonResponse({
       ok: true,
       message: `Task "${title}" updated to ${status}`,
       timestamp: new Date().toISOString()
     });
   } catch (error) {
     console.error('[Mission Control] Task update error:', error);
-    return NextResponse.json(
-      { error: 'Invalid request body' },
-      { status: 400 }
-    );
+    return corsErrorResponse('Invalid request body', 400);
   }
 }
 
 export async function OPTIONS() {
-  return new NextResponse(null, {
-    status: 204,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
-    },
-  });
+  return corsOptionsResponse();
 }
