@@ -38,24 +38,31 @@ export async function GET(request: NextRequest) {
 
     console.log(`[Mission Control] Using ${mockAgents.length} mock agents`);
 
-    return NextResponse.json({
+    const res = NextResponse.json({
       ok: true,
       agents: mockAgents,
       count: mockAgents.length,
       source: 'mock',
       timestamp: new Date().toISOString()
     });
+    res.headers.set('Access-Control-Allow-Origin', '*');
+    return res;
   } catch (error) {
     console.error('[Mission Control] Agents fetch error:', error);
-    
-    return NextResponse.json({
-      ok: false,
-      error: 'Failed to fetch agents',
-      agents: [],
-      count: 0,
-      source: 'error',
-      timestamp: new Date().toISOString()
-    });
+
+    const res = NextResponse.json(
+      {
+        ok: false,
+        error: 'Failed to fetch agents',
+        agents: [],
+        count: 0,
+        source: 'error',
+        timestamp: new Date().toISOString()
+      },
+      { status: 500 }
+    );
+    res.headers.set('Access-Control-Allow-Origin', '*');
+    return res;
   }
 }
 
