@@ -1,4 +1,4 @@
-// src/app/api/metrics/route.ts
+// src/app/api/metric/route.ts
 import { corsOptionsResponse, corsJsonResponse } from '@/lib/cors';
 
 export async function GET() {
