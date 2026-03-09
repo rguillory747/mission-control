@@ -1,4 +1,14 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
+import { corsOptionsResponse, corsJsonResponse, corsErrorResponse } from '@/lib/cors';
+
+export async function GET() {
+  // Simple health / debug response so GET isn’t 404
+  return corsJsonResponse({
+    ok: true,
+    message: 'Activities endpoint is live (use POST to log activities)',
+    timestamp: new Date().toISOString(),
+  });
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -6,39 +16,24 @@ export async function POST(request: NextRequest) {
     const { agent, action, detail } = body;
 
     if (!agent || !action) {
-      return NextResponse.json(
-        { error: 'agent and action are required' },
-        { status: 400 }
-      );
+      return corsErrorResponse('agent and action are required', 400);
     }
 
-    // For now, log the activity
-    console.log(`[Mission Control] Activity from ${agent}: ${action} - ${detail || 'No details'}`);
+    console.log(
+      `[Mission Control] Activity from ${agent}: ${action} - ${detail || 'No details'}`
+    );
 
-    // TODO: Integrate with Convex backend
-    // This should call Convex mutation to log activity
-    
-    return NextResponse.json({
+    return corsJsonResponse({
       ok: true,
       message: `Activity logged from ${agent}`,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   } catch (error) {
     console.error('[Mission Control] Activity error:', error);
-    return NextResponse.json(
-      { error: 'Invalid request body' },
-      { status: 400 }
-    );
+    return corsErrorResponse('Invalid request body', 400);
   }
 }
 
 export async function OPTIONS() {
-  return new NextResponse(null, {
-    status: 204,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
-    },
-  });
+  return corsOptionsResponse();
 }
