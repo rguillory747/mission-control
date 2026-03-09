@@ -1,4 +1,3 @@
-// src/app/api/activities/route.ts
 import { NextRequest } from 'next/server';
 import { corsOptionsResponse, corsJsonResponse, corsErrorResponse } from '@/lib/cors';
 
